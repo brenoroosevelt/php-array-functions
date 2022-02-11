@@ -97,16 +97,6 @@ function map(iterable $array, callable $callback, bool $preserveKeys = true): ar
     return $result;
 }
 
-function for_each(iterable $array, callable $callback, bool $stoppable = true): void
-{
-    foreach ($array as $key => $value) {
-        $result = call_user_func_array($callback, [$value, $key]);
-        if ($result === false && $stoppable) {
-            break;
-        }
-    }
-}
-
 function accept(iterable $array, callable $callback, bool $preserveKeys = true): array
 {
     $result = [];
