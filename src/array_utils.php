@@ -5,13 +5,15 @@ namespace BrenoRoosevelt;
 
 function all(iterable $array, callable $callback): bool
 {
+    $count = 0;
     foreach ($array as $key => $value) {
+        $count++;
         if (true !== call_user_func_array($callback, [$value, $key])) {
             return false;
         }
     }
 
-    return true;
+    return $count > 0;
 }
 
 function some(iterable $array, callable $callback): bool
@@ -36,7 +38,7 @@ function at_least(iterable $array, int $n, callable $callback): bool
         }
     }
 
-    return false;
+    return $count >= $n;
 }
 
 function at_most(iterable $array, int $n, callable $callback): bool
@@ -51,7 +53,7 @@ function at_most(iterable $array, int $n, callable $callback): bool
         }
     }
 
-    return true;
+    return $count <= $n;
 }
 
 function exactly(iterable $array, int $n, callable $callback): bool
