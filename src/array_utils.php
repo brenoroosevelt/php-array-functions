@@ -148,6 +148,7 @@ function array_remove_first(array &$array, $element, bool $strict = true): bool
     $index = index_of($array, $element, $strict);
     if ($index !== false) {
         unset($array[$index]);
+
         return true;
     }
 
@@ -157,7 +158,7 @@ function array_remove_first(array &$array, $element, bool $strict = true): bool
 function array_remove_all(array &$array, $element, bool $strict = true): int
 {
     $removed = 0;
-    while(false !== ($index = index_of($array, $element, $strict))) {
+    while (false !== ($index = index_of($array, $element, $strict))) {
         unset($array[$index]);
         $removed++;
     }
