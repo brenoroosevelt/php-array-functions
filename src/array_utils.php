@@ -210,7 +210,7 @@ function count_values(iterable $array, callable $callback): int
     return $count;
 }
 
-function flatten(array $array, ?string $path_key = null)
+function flatten(array $array, ?string $separator = null)
 {
     $result = [];
     $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($array));
@@ -220,12 +220,108 @@ function flatten(array $array, ?string $path_key = null)
             $keys[] = $iterator->getSubIterator($depth)->key();
         }
 
-        if (!empty($path_key)) {
-            $result[join($path_key, $keys) ] = $leafValue;
+        if (!empty($separator)) {
+            $result[join($separator, $keys) ] = $leafValue;
         } else {
             $result[] = $leafValue;
         }
     }
 
     return $result;
+}
+
+function expand(array $array, string $separator = '.'): array
+{
+    $result = [];
+    foreach ($array as $key => $value) {
+        set_path($result, (string) $key, $value, $separator);
+    }
+
+    return $result;
+}
+
+function set_path(array &$array, string $path, $value, string $separator = '.'): void
+{
+    $key = trim($path, $separator);
+    $keys = explode($separator, $key);
+    if (empty($keys)) {
+        return;
+    }
+
+    $target = &$array;
+    foreach ($keys as $innerKey) {
+        if (!is_array($target)) {
+            break;
+        }
+
+        if(!array_key_exists($innerKey, $target)) {
+            $target[$innerKey] = [];
+        }
+
+        $target = &$target[$innerKey];
+    }
+
+    $target = $value;
+}
+
+function get_path(array $array, string $path, $default = null, string $separator = '.')
+{
+    $key = trim($path, $separator);
+    $keys = explode($separator, $key);
+    if (empty($keys)) {
+        return $default;
+    }
+
+    $target = $array;
+    foreach ($keys as $innerKey) {
+        if(!is_array($target) || !array_key_exists($innerKey, $target)) {
+            return $default;
+        }
+
+        $target = $target[$innerKey];
+    }
+
+    return $target;
+}
+
+function unset_path(array &$array, string $path, string $separator = '.')
+{
+    $key = trim($path, $separator);
+    $keys = explode($separator, $key);
+    if (empty($keys)) {
+        return;
+    }
+
+    $target = &$array;
+    foreach ($keys as $innerKey) {
+        if (!is_array($target)) {
+            break;
+        }
+
+        if(array_key_exists($innerKey, $target)) {
+            $target = &$target[$innerKey];
+        }
+    }
+
+    unset($target);
+}
+
+function has_path(array $array, string $path, string $separator = '.'): bool
+{
+    $key = trim($path, $separator);
+    $keys = explode($separator, $key);
+    if (empty($keys)) {
+        return false;
+    }
+
+    $target = $array;
+    foreach ($keys as $innerKey) {
+        if(!is_array($target) || !array_key_exists($innerKey, $target)) {
+            return false;
+        }
+
+        $target = $target[$innerKey];
+    }
+
+    return true;
 }
