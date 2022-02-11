@@ -123,7 +123,7 @@ function array_accept(iterable $array, callable $callback, bool $preserveKeys = 
 
 function array_reject(iterable $array, callable $callback, bool $preserveKeys = true): array
 {
-    return array_accept($array, fn($v, $k) => !call_user_func_array($callback, [$v, $k]), $preserveKeys);
+    return array_accept($array, fn ($v, $k) => ! call_user_func_array($callback, [$v, $k]), $preserveKeys);
 }
 
 function index_of(iterable $array, $element, bool $strict = true)
