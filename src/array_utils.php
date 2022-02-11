@@ -168,12 +168,12 @@ function remove_all(array &$array, $element, bool $strict = true): int
 
 function only_keys(iterable $array, array $keys): array
 {
-    return accept($array, fn($v, $k) => in_array($k, $keys));
+    return accept($array, fn ($v, $k) => in_array($k, $keys));
 }
 
 function except_keys(iterable $array, array $keys): array
 {
-    return accept($array, fn($v, $k) => !in_array($k, $keys));
+    return accept($array, fn ($v, $k) => ! in_array($k, $keys));
 }
 
 function paginate(array $array, int $page, int $per_page, bool $preserve_keys = true): array
