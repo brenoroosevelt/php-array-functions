@@ -5,6 +5,8 @@ namespace BrenoRoosevelt\Tests;
 use PHPUnit\Framework\TestCase;
 use function BrenoRoosevelt\at_least;
 use function BrenoRoosevelt\at_most;
+use function BrenoRoosevelt\for_each;
+use function BrenoRoosevelt\for_range;
 use function BrenoRoosevelt\some;
 
 class ArrayUtilsTest extends TestCase

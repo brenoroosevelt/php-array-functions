@@ -97,14 +97,19 @@ function map(iterable $array, callable $callback, bool $preserveKeys = true): ar
     return $result;
 }
 
-function each(iterable $array, callable $callback, bool $stoppable = true): void
+function for_each(iterable $array, callable $callback, bool $stoppable = true): void
 {
     foreach ($array as $key => $value) {
         $result = call_user_func_array($callback, [$value, $key]);
-        if ($result !== true && $stoppable) {
+        if ($result === false && $stoppable) {
             break;
         }
     }
+}
+
+function for_each_from($start, $end, callable $callback, $step = 1, bool $stoppable = false): void
+{
+    for_each(range($start, $end, $step), $callback, $stoppable);
 }
 
 function accept(iterable $array, callable $callback, bool $preserveKeys = true): array
