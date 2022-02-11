@@ -69,7 +69,7 @@ function array_exactly(iterable $array, int $n, callable $callback): bool
     return $count === $n;
 }
 
-function array_first(iterable $array, callable $callback, $default = null): bool
+function array_first(iterable $array, callable $callback, $default = null)
 {
     foreach ($array as $key => $value) {
         if (true === call_user_func_array($callback, [$value, $key])) {
@@ -80,6 +80,21 @@ function array_first(iterable $array, callable $callback, $default = null): bool
     return $default;
 }
 
+function array_map(iterable $array, callable $callback, bool $preserveKeys = true): array
+{
+    $result = [];
+    foreach ($array as $key => $value) {
+        $mapped = call_user_func_array($callback, [$value, $key]);
+        if ($preserveKeys) {
+            $result[$key] = $mapped;
+        } else {
+            $result[] = $mapped;
+        }
+    }
+
+    return $result;
+}
+
 function array_each(iterable $array, callable $callback, bool $stoppable = true): void
 {
     foreach ($array as $key => $value) {
@@ -88,4 +103,30 @@ function array_each(iterable $array, callable $callback, bool $stoppable = true)
             break;
         }
     }
+}
+
+function array_accept(iterable $array, callable $callback, bool $preserveKeys = true): array
+{
+    $result = [];
+    foreach ($array as $key => $value) {
+        if (true === call_user_func_array($callback, [$value, $key])) {
+            if ($preserveKeys) {
+                $result[$key] = $value;
+            } else {
+                $result[] = $value;
+            }
+        }
+    }
+
+    return $result;
+}
+
+function array_reject(iterable $array, callable $callback, bool $preserveKeys = true): array
+{
+    return array_accept($array, fn($v, $k) => !call_user_func_array($callback, [$v, $k]), $preserveKeys);
+}
+
+function index_of(array $array, $element, bool $strict = true)
+{
+    return array_search($element, $array, $strict);
 }
