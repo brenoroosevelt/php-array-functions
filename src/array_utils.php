@@ -210,6 +210,21 @@ function count_values(iterable $array, callable $callback): int
     return $count;
 }
 
+function group_by(iterable $array, callable $callback): array
+{
+    $group = [];
+    foreach ($array as $key => $value) {
+        $group[call_user_func_array($callback, [$value, $key])][] = $value;
+    }
+
+    return $group;
+}
+
+function append(array &$array, iterable $values, callable $callback): void
+{
+    array_push($array, ...accept($values, $callback));
+}
+
 function flatten(array $array, ?string $separator = null)
 {
     $result = [];
