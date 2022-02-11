@@ -5,11 +5,10 @@ namespace BrenoRoosevelt\Tests;
 
 use PHPUnit\Framework\TestCase;
 
-
 class ArrayUtilsTest extends TestCase
 {
     public function test_all()
     {
-       $this->assertTrue(true);
+        $this->assertTrue(true);
     }
 }
