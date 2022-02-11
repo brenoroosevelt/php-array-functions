@@ -220,7 +220,7 @@ function flatten(array $array, ?string $path_key = null)
             $keys[] = $iterator->getSubIterator($depth)->key();
         }
 
-        if (!empty($path_key)) {
+        if (! empty($path_key)) {
             $result[join($path_key, $keys) ] = $leafValue;
         } else {
             $result[] = $leafValue;
