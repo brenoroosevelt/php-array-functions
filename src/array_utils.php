@@ -210,7 +210,7 @@ function count_values(iterable $array, callable $callback): int
     return $count;
 }
 
-function flatten(array $array, ?string $join = null)
+function flatten(array $array, ?string $path_key = null)
 {
     $result = [];
     $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($array));
@@ -220,8 +220,8 @@ function flatten(array $array, ?string $join = null)
             $keys[] = $iterator->getSubIterator($depth)->key();
         }
 
-        if (!empty($join)) {
-            $result[join($join, $keys) ] = $leafValue;
+        if (!empty($path_key)) {
+            $result[join($path_key, $keys) ] = $leafValue;
         } else {
             $result[] = $leafValue;
         }
