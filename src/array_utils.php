@@ -165,23 +165,3 @@ function array_remove_all(array &$array, $element, bool $strict = true): int
 
     return $removed;
 }
-
-function array_contains_all(array $array, array $needle, bool $strict = true): bool
-{
-    return false;
-}
-
-function array_contains_any(array $array, array $needle, bool $strict = true): bool
-{
-    return false;
-}
-
-function array_contains_none(array $array, array $needle, bool $strict = true): bool
-{
-    return false;
-}
-
-function array_contains_only(array $array, array $needle, bool $strict = true): bool
-{
-    return false;
-}
