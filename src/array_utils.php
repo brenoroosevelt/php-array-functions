@@ -135,6 +135,18 @@ function index_of(iterable $array, $element, bool $strict = true)
     return false;
 }
 
+function column(iterable $array, $column): array
+{
+    $result = [];
+    foreach ($array as $element) {
+        if (is_array($element) && array_key_exists($column, $element)) {
+            $result[] = $element[$column];
+        }
+    }
+
+    return $result;
+}
+
 function remove_first(array &$array, $element, bool $strict = true): bool
 {
     $index = index_of($array, $element, $strict);
