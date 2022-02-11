@@ -126,7 +126,41 @@ function array_reject(iterable $array, callable $callback, bool $preserveKeys = 
     return array_accept($array, fn($v, $k) => !call_user_func_array($callback, [$v, $k]), $preserveKeys);
 }
 
-function index_of(array $array, $element, bool $strict = true)
+function index_of(iterable $array, $element, bool $strict = true)
 {
-    return array_search($element, $array, $strict);
+    if (is_array($array)) {
+        return array_search($element, $array, $strict);
+    }
+
+    foreach ($array as $index => $value) {
+        if (($strict === true && $element === $value) ||
+            ($strict === false && $element == $value)
+        ) {
+            return $index;
+        }
+    }
+
+    return false;
+}
+
+function array_remove_first(array &$array, $element, bool $strict = true): bool
+{
+    $index = index_of($array, $element, $strict);
+    if ($index !== false) {
+        unset($array[$index]);
+        return true;
+    }
+
+    return false;
+}
+
+function array_remove_all(array &$array, $element, bool $strict = true): int
+{
+    $removed = 0;
+    while(false !== ($index = index_of($array, $element, $strict))) {
+        unset($array[$index]);
+        $removed++;
+    }
+
+    return $removed;
 }
