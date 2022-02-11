@@ -165,3 +165,13 @@ function remove_all(array &$array, $element, bool $strict = true): int
 
     return $removed;
 }
+
+function only_keys(iterable $array, array $keys): array
+{
+    return accept($array, fn($v, $k) => in_array($k, $keys));
+}
+
+function except_keys(iterable $array, array $keys): array
+{
+    return accept($array, fn($v, $k) => !in_array($k, $keys));
+}
