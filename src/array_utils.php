@@ -209,3 +209,23 @@ function count_values(iterable $array, callable $callback): int
 
     return $count;
 }
+
+function flatten(array $array, ?string $join = null)
+{
+    $result = [];
+    $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($array));
+    foreach ($iterator as $leafValue) {
+        $keys = [];
+        foreach (range(0, $iterator->getDepth()) as $depth) {
+            $keys[] = $iterator->getSubIterator($depth)->key();
+        }
+
+        if (!empty($join)) {
+            $result[join($join, $keys) ] = $leafValue;
+        } else {
+            $result[] = $leafValue;
+        }
+    }
+
+    return $result;
+}
