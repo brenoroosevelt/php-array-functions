@@ -235,7 +235,7 @@ function flatten(array $array, ?string $separator = null)
             $keys[] = $iterator->getSubIterator($depth)->key();
         }
 
-        if (!empty($separator)) {
+        if (! empty($separator)) {
             $result[join($separator, $keys) ] = $leafValue;
         } else {
             $result[] = $leafValue;
@@ -265,11 +265,11 @@ function set_path(array &$array, string $path, $value, string $separator = '.'):
 
     $target = &$array;
     foreach ($keys as $innerKey) {
-        if (!is_array($target)) {
+        if (! is_array($target)) {
             break;
         }
 
-        if(!array_key_exists($innerKey, $target)) {
+        if (! array_key_exists($innerKey, $target)) {
             $target[$innerKey] = [];
         }
 
@@ -289,7 +289,7 @@ function get_path(array $array, string $path, $default = null, string $separator
 
     $target = $array;
     foreach ($keys as $innerKey) {
-        if(!is_array($target) || !array_key_exists($innerKey, $target)) {
+        if (! is_array($target) || ! array_key_exists($innerKey, $target)) {
             return $default;
         }
 
@@ -309,11 +309,11 @@ function unset_path(array &$array, string $path, string $separator = '.')
 
     $target = &$array;
     foreach ($keys as $innerKey) {
-        if (!is_array($target)) {
+        if (! is_array($target)) {
             break;
         }
 
-        if(array_key_exists($innerKey, $target)) {
+        if (array_key_exists($innerKey, $target)) {
             $target = &$target[$innerKey];
         }
     }
@@ -331,7 +331,7 @@ function has_path(array $array, string $path, string $separator = '.'): bool
 
     $target = $array;
     foreach ($keys as $innerKey) {
-        if(!is_array($target) || !array_key_exists($innerKey, $target)) {
+        if (! is_array($target) || ! array_key_exists($innerKey, $target)) {
             return false;
         }
 
