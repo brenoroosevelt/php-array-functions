@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt;
 
-function array_all(iterable $array, callable $callback): bool
+function all(iterable $array, callable $callback): bool
 {
     foreach ($array as $key => $value) {
         if (true !== call_user_func_array($callback, [$value, $key])) {
@@ -14,17 +14,17 @@ function array_all(iterable $array, callable $callback): bool
     return true;
 }
 
-function array_some(iterable $array, callable $callback): bool
+function some(iterable $array, callable $callback): bool
 {
-    return array_at_least($array, 1, $callback);
+    return at_least($array, 1, $callback);
 }
 
-function array_none(iterable $array, callable $callback): bool
+function none(iterable $array, callable $callback): bool
 {
-    return ! array_some($array, $callback);
+    return !some($array, $callback);
 }
 
-function array_at_least(iterable $array, int $n, callable $callback): bool
+function at_least(iterable $array, int $n, callable $callback): bool
 {
     $count = 0;
     foreach ($array as $key => $value) {
@@ -39,7 +39,7 @@ function array_at_least(iterable $array, int $n, callable $callback): bool
     return false;
 }
 
-function array_at_most(iterable $array, int $n, callable $callback): bool
+function at_most(iterable $array, int $n, callable $callback): bool
 {
     $count = 0;
     foreach ($array as $key => $value) {
@@ -54,7 +54,7 @@ function array_at_most(iterable $array, int $n, callable $callback): bool
     return true;
 }
 
-function array_exactly(iterable $array, int $n, callable $callback): bool
+function exactly(iterable $array, int $n, callable $callback): bool
 {
     $count = 0;
     foreach ($array as $key => $value) {
@@ -69,7 +69,7 @@ function array_exactly(iterable $array, int $n, callable $callback): bool
     return $count === $n;
 }
 
-function array_first(iterable $array, callable $callback, $default = null)
+function first(iterable $array, callable $callback, $default = null)
 {
     foreach ($array as $key => $value) {
         if (true === call_user_func_array($callback, [$value, $key])) {
@@ -80,7 +80,7 @@ function array_first(iterable $array, callable $callback, $default = null)
     return $default;
 }
 
-function array_map(iterable $array, callable $callback, bool $preserveKeys = true): array
+function map(iterable $array, callable $callback, bool $preserveKeys = true): array
 {
     $result = [];
     foreach ($array as $key => $value) {
@@ -95,7 +95,7 @@ function array_map(iterable $array, callable $callback, bool $preserveKeys = tru
     return $result;
 }
 
-function array_each(iterable $array, callable $callback, bool $stoppable = true): void
+function each(iterable $array, callable $callback, bool $stoppable = true): void
 {
     foreach ($array as $key => $value) {
         $result = call_user_func_array($callback, [$value, $key]);
@@ -105,7 +105,7 @@ function array_each(iterable $array, callable $callback, bool $stoppable = true)
     }
 }
 
-function array_accept(iterable $array, callable $callback, bool $preserveKeys = true): array
+function accept(iterable $array, callable $callback, bool $preserveKeys = true): array
 {
     $result = [];
     foreach ($array as $key => $value) {
@@ -121,9 +121,9 @@ function array_accept(iterable $array, callable $callback, bool $preserveKeys = 
     return $result;
 }
 
-function array_reject(iterable $array, callable $callback, bool $preserveKeys = true): array
+function reject(iterable $array, callable $callback, bool $preserveKeys = true): array
 {
-    return array_accept($array, fn ($v, $k) => ! call_user_func_array($callback, [$v, $k]), $preserveKeys);
+    return accept($array, fn ($v, $k) => ! call_user_func_array($callback, [$v, $k]), $preserveKeys);
 }
 
 function index_of(iterable $array, $element, bool $strict = true)
@@ -143,7 +143,7 @@ function index_of(iterable $array, $element, bool $strict = true)
     return false;
 }
 
-function array_remove_first(array &$array, $element, bool $strict = true): bool
+function remove_first(array &$array, $element, bool $strict = true): bool
 {
     $index = index_of($array, $element, $strict);
     if ($index !== false) {
@@ -155,7 +155,7 @@ function array_remove_first(array &$array, $element, bool $strict = true): bool
     return false;
 }
 
-function array_remove_all(array &$array, $element, bool $strict = true): int
+function remove_all(array &$array, $element, bool $strict = true): int
 {
     $removed = 0;
     while (false !== ($index = index_of($array, $element, $strict))) {
