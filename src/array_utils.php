@@ -181,3 +181,30 @@ function paginate(array $array, int $page, int $per_page, bool $preserve_keys = 
     $offset = max(0, ($page - 1) * $per_page);
     return array_slice($array, $offset, $per_page, $preserve_keys);
 }
+
+/**
+ * @param iterable $array
+ * @param callable $callback thar returns an int|float
+ * @return int|float
+ */
+function sum_values(iterable $array, callable $callback)
+{
+    $sum = 0;
+    foreach ($array as $key => $value) {
+        $sum += call_user_func_array($callback, [$value, $key]);
+    }
+
+    return $sum;
+}
+
+function count_values(iterable $array, callable $callback): int
+{
+    $count = 0;
+    foreach ($array as $key => $value) {
+        if (true === call_user_func_array($callback, [$value, $key])) {
+            $count++;
+        }
+    }
+
+    return $count;
+}
