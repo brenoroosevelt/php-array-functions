@@ -21,7 +21,7 @@ function some(iterable $array, callable $callback): bool
 
 function none(iterable $array, callable $callback): bool
 {
-    return !some($array, $callback);
+    return ! some($array, $callback);
 }
 
 function at_least(iterable $array, int $n, callable $callback): bool
