@@ -107,11 +107,6 @@ function for_each(iterable $array, callable $callback, bool $stoppable = true): 
     }
 }
 
-function for_each_from($start, $end, callable $callback, $step = 1, bool $stoppable = false): void
-{
-    for_each(range($start, $end, $step), $callback, $stoppable);
-}
-
 function accept(iterable $array, callable $callback, bool $preserveKeys = true): array
 {
     $result = [];
