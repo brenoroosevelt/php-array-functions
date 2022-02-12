@@ -93,7 +93,7 @@ function map(iterable $array, callable $callback): array
     $args = __args($callback);
     foreach ($array as $key => $value) {
         $mapped = call_user_func_array($callback, $args($key, $value));
-            $result[$key] = $mapped;
+        $result[$key] = $mapped;
     }
 
     return $result;
@@ -115,6 +115,7 @@ function accept(iterable $array, callable $callback): array
 function reject(iterable $array, callable $callback): array
 {
     $args = __args($callback);
+
     return accept($array, fn ($v, $k) => ! call_user_func_array($callback, $args($k, $v)));
 }
 
@@ -374,6 +375,7 @@ function has_path(array $array, string $path, string $separator = '.'): bool
 /** @internal */
 function __args(callable $callback): callable
 {
-    $num_args =  (new \ReflectionFunction(\Closure::fromCallable($callback)))->getNumberOfParameters();
-    return fn($k, $v) => $num_args > 1 ? [$v, $k] : [$v];
+    $num_args = (new \ReflectionFunction(\Closure::fromCallable($callback)))->getNumberOfParameters();
+
+    return fn ($k, $v) => $num_args > 1 ? [$v, $k] : [$v];
 }
