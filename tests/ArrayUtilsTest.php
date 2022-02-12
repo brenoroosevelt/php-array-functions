@@ -4,11 +4,13 @@ declare(strict_types=1);
 namespace BrenoRoosevelt\Tests;
 
 use PHPUnit\Framework\TestCase;
+use function BrenoRoosevelt\all;
 
 class ArrayUtilsTest extends TestCase
 {
     public function test_all()
     {
-        $this->assertTrue(true);
+        $r = all([1,2,], 'is_numeric');
+        $this->assertTrue($r);
     }
 }
