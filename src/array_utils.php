@@ -49,15 +49,15 @@ function contains_any(iterable $set, iterable $elements, bool $strict = true): b
 
 function add(array &$set, ...$elements): int
 {
-    $count = 0;
+    $added = 0;
     foreach ($elements as $element) {
         if (! in_array($element, $set, true)) {
             $set[] = $element;
-            $count++;
+            $added++;
         }
     }
 
-    return $count;
+    return $added;
 }
 
 function remove(array &$set, ...$elements): int
