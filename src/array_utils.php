@@ -364,9 +364,6 @@ function has_path(array $array, string $path, string $separator = '.'): bool
 function _callback_args(callable $callback, $key, $value): array
 {
     $numArgs = (new \ReflectionFunction(\Closure::fromCallable($callback)))->getNumberOfParameters();
-    if ($numArgs > 1) {
-        return [$value, $key];
-    }
 
-    return [$value];
+    return $numArgs > 1 ? [$value, $key] : [$value];
 }
