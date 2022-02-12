@@ -196,7 +196,7 @@ function reject(iterable $array, callable $callback): array
 
 function has_key(array $array, ...$keys): bool
 {
-    return !array_diff($keys, array_keys($array));
+    return ! array_diff($keys, array_keys($array));
 }
 
 function only_keys(array $array, ...$keys): array
