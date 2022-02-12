@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt;
 
-function index_of(iterable $array, $element, bool $strict = true)
+function index_of(iterable $items, $element, bool $strict = true)
 {
-    if (is_array($array)) {
-        return array_search($element, $array, $strict);
+    if (is_array($items)) {
+        return array_search($element, $items, $strict);
     }
 
-    foreach ($array as $index => $value) {
+    foreach ($items as $index => $value) {
         if (($strict === true && $element === $value) ||
             ($strict === false && $element == $value)
         ) {
@@ -20,15 +20,15 @@ function index_of(iterable $array, $element, bool $strict = true)
     return false;
 }
 
-function contains(iterable $set, $element, bool $strict = true): bool
+function contains(iterable $items, $element, bool $strict = true): bool
 {
-    return index_of($set, $element, $strict) !== false;
+    return index_of($items, $element, $strict) !== false;
 }
 
-function contains_all(iterable $set, iterable $elements, bool $strict = true): bool
+function contains_all(iterable $items, iterable $elements, bool $strict = true): bool
 {
     foreach ($elements as $element) {
-        if (! contains($set, $element, $strict)) {
+        if (! contains($items, $element, $strict)) {
             return false;
         }
     }
@@ -36,10 +36,10 @@ function contains_all(iterable $set, iterable $elements, bool $strict = true): b
     return true;
 }
 
-function contains_any(iterable $set, iterable $elements, bool $strict = true): bool
+function contains_any(iterable $items, iterable $elements, bool $strict = true): bool
 {
     foreach ($elements as $element) {
-        if (contains($set, $element, $strict)) {
+        if (contains($items, $element, $strict)) {
             return true;
         }
     }
@@ -72,11 +72,11 @@ function remove(array &$set, ...$elements): int
     return $removed;
 }
 
-function all(iterable $array, callable $callback, bool $empty_is_valid = false): bool
+function all(iterable $items, callable $callback, bool $empty_is_valid = false): bool
 {
     $count = 0;
     $args = __args($callback);
-    foreach ($array as $key => $value) {
+    foreach ($items as $key => $value) {
         $count++;
         if (true !== call_user_func_array($callback, $args($key, $value))) {
             return false;
@@ -86,21 +86,21 @@ function all(iterable $array, callable $callback, bool $empty_is_valid = false):
     return $empty_is_valid || $count > 0;
 }
 
-function some(iterable $array, callable $callback): bool
+function some(iterable $items, callable $callback): bool
 {
-    return at_least($array, 1, $callback);
+    return at_least(1, $items, $callback);
 }
 
-function none(iterable $array, callable $callback): bool
+function none(iterable $items, callable $callback): bool
 {
-    return ! some($array, $callback);
+    return ! some($items, $callback);
 }
 
-function at_least(iterable $array, int $n, callable $callback): bool
+function at_least(int $n, iterable $items, callable $callback): bool
 {
     $count = 0;
     $args = __args($callback);
-    foreach ($array as $key => $value) {
+    foreach ($items as $key => $value) {
         if (true === call_user_func_array($callback, $args($key, $value))) {
             $count++;
             if ($count >= $n) {
@@ -112,11 +112,11 @@ function at_least(iterable $array, int $n, callable $callback): bool
     return $count >= $n;
 }
 
-function at_most(iterable $array, int $n, callable $callback): bool
+function at_most(int $n, iterable $items, callable $callback): bool
 {
     $count = 0;
     $args = __args($callback);
-    foreach ($array as $key => $value) {
+    foreach ($items as $key => $value) {
         if (true === call_user_func_array($callback, $args($key, $value))) {
             $count++;
             if ($count > $n) {
@@ -128,11 +128,11 @@ function at_most(iterable $array, int $n, callable $callback): bool
     return $count <= $n;
 }
 
-function exactly(iterable $array, int $n, callable $callback): bool
+function exactly(int $n, iterable $items, callable $callback): bool
 {
     $count = 0;
     $args = __args($callback);
-    foreach ($array as $key => $value) {
+    foreach ($items as $key => $value) {
         if (true === call_user_func_array($callback, $args($key, $value))) {
             $count++;
             if ($count > $n) {
@@ -144,10 +144,10 @@ function exactly(iterable $array, int $n, callable $callback): bool
     return $count === $n;
 }
 
-function first(iterable $array, callable $callback, $default = null)
+function first(iterable $items, callable $callback, $default = null)
 {
     $args = __args($callback);
-    foreach ($array as $key => $value) {
+    foreach ($items as $key => $value) {
         if (true === call_user_func_array($callback, $args($key, $value))) {
             return $value;
         }
@@ -156,11 +156,11 @@ function first(iterable $array, callable $callback, $default = null)
     return $default;
 }
 
-function map(iterable $array, callable $callback): array
+function map(iterable $items, callable $callback): array
 {
     $result = [];
     $args = __args($callback);
-    foreach ($array as $key => $value) {
+    foreach ($items as $key => $value) {
         $mapped = call_user_func_array($callback, $args($key, $value));
         $result[$key] = $mapped;
     }
@@ -168,11 +168,11 @@ function map(iterable $array, callable $callback): array
     return $result;
 }
 
-function accept(iterable $array, callable $callback): array
+function accept(iterable $items, callable $callback): array
 {
     $result = [];
     $args = __args($callback);
-    foreach ($array as $key => $value) {
+    foreach ($items as $key => $value) {
         if (true === call_user_func_array($callback, $args($key, $value))) {
             $result[$key] = $value;
         }
@@ -181,11 +181,11 @@ function accept(iterable $array, callable $callback): array
     return $result;
 }
 
-function reject(iterable $array, callable $callback): array
+function reject(iterable $items, callable $callback): array
 {
     $result = [];
     $args = __args($callback);
-    foreach ($array as $key => $value) {
+    foreach ($items as $key => $value) {
         if (true !== call_user_func_array($callback, $args($key, $value))) {
             $result[$key] = $value;
         }
@@ -194,25 +194,25 @@ function reject(iterable $array, callable $callback): array
     return $result;
 }
 
-function has_key(array $array, ...$keys): bool
+function has_key(array $items, ...$keys): bool
 {
-    return ! array_diff($keys, array_keys($array));
+    return ! array_diff($keys, array_keys($items));
 }
 
-function only_keys(array $array, ...$keys): array
+function only_keys(array $items, ...$keys): array
 {
-    return array_intersect_key($array, array_flip($keys));
+    return array_intersect_key($items, array_flip($keys));
 }
 
-function except_keys(array $array, ...$keys): array
+function except_keys(array $items, ...$keys): array
 {
-    return array_diff_key($array, array_flip($keys));
+    return array_diff_key($items, array_flip($keys));
 }
 
-function column(iterable $array, $column): array
+function column(iterable $items, $column): array
 {
     $result = [];
-    foreach ($array as $element) {
+    foreach ($items as $element) {
         if (is_array($element) && array_key_exists($column, $element)) {
             $result[] = $element[$column];
         }
@@ -221,34 +221,34 @@ function column(iterable $array, $column): array
     return $result;
 }
 
-function paginate(array $array, int $page, int $per_page, bool $preserve_keys = true): array
+function paginate(array $items, int $page, int $per_page, bool $preserve_keys = true): array
 {
     $offset = max(0, ($page - 1) * $per_page);
 
-    return array_slice($array, $offset, $per_page, $preserve_keys);
+    return array_slice($items, $offset, $per_page, $preserve_keys);
 }
 
 /**
- * @param iterable $array
+ * @param iterable $items
  * @param callable $callback thar returns an int|float
  * @return int|float
  */
-function sum_values(iterable $array, callable $callback)
+function sum_values(iterable $items, callable $callback)
 {
     $sum = 0;
     $args = __args($callback);
-    foreach ($array as $key => $value) {
+    foreach ($items as $key => $value) {
         $sum += call_user_func_array($callback, $args($key, $value));
     }
 
     return $sum;
 }
 
-function count_values(iterable $array, callable $callback): int
+function count_values(iterable $items, callable $callback): int
 {
     $count = 0;
     $args = __args($callback);
-    foreach ($array as $key => $value) {
+    foreach ($items as $key => $value) {
         if (true === call_user_func_array($callback, $args($key, $value))) {
             $count++;
         }
@@ -257,21 +257,21 @@ function count_values(iterable $array, callable $callback): int
     return $count;
 }
 
-function group_by(iterable $array, callable $callback): array
+function group_by(iterable $items, callable $callback): array
 {
     $group = [];
     $args = __args($callback);
-    foreach ($array as $key => $value) {
+    foreach ($items as $key => $value) {
         $group[call_user_func_array($callback, $args($key, $value))][] = $value;
     }
 
     return $group;
 }
 
-function flatten(array $array, ?string $separator = null)
+function flatten(array $items, ?string $separator = null)
 {
     $result = [];
-    $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($array));
+    $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($items));
     foreach ($iterator as $leafValue) {
         $keys = [];
         foreach (range(0, $iterator->getDepth()) as $depth) {
@@ -288,17 +288,17 @@ function flatten(array $array, ?string $separator = null)
     return $result;
 }
 
-function expand(array $array, string $separator = '.'): array
+function expand(array $items, string $separator = '.'): array
 {
     $result = [];
-    foreach ($array as $key => $value) {
+    foreach ($items as $key => $value) {
         set_path($result, (string) $key, $value, $separator);
     }
 
     return $result;
 }
 
-function set_path(array &$array, string $path, $value, string $separator = '.'): void
+function set_path(array &$haystack, string $path, $value, string $separator = '.'): void
 {
     $key = trim($path, $separator);
     $keys = explode($separator, $key);
@@ -306,7 +306,7 @@ function set_path(array &$array, string $path, $value, string $separator = '.'):
         return;
     }
 
-    $target = &$array;
+    $target = &$haystack;
     foreach ($keys as $innerKey) {
         if (! is_array($target)) {
             break;
@@ -322,7 +322,7 @@ function set_path(array &$array, string $path, $value, string $separator = '.'):
     $target = $value;
 }
 
-function get_path(array $array, string $path, $default = null, string $separator = '.')
+function get_path(array $haystack, string $path, $default = null, string $separator = '.')
 {
     $key = trim($path, $separator);
     $keys = explode($separator, $key);
@@ -330,7 +330,7 @@ function get_path(array $array, string $path, $default = null, string $separator
         return $default;
     }
 
-    $target = $array;
+    $target = $haystack;
     foreach ($keys as $innerKey) {
         if (! is_array($target) || ! array_key_exists($innerKey, $target)) {
             return $default;
@@ -342,7 +342,7 @@ function get_path(array $array, string $path, $default = null, string $separator
     return $target;
 }
 
-function unset_path(array &$array, string $path, string $separator = '.')
+function unset_path(array &$haystack, string $path, string $separator = '.')
 {
     $key = trim($path, $separator);
     $keys = explode($separator, $key);
@@ -350,7 +350,7 @@ function unset_path(array &$array, string $path, string $separator = '.')
         return;
     }
 
-    $target = &$array;
+    $target = &$haystack;
     foreach ($keys as $innerKey) {
         if (! is_array($target)) {
             break;
@@ -364,7 +364,7 @@ function unset_path(array &$array, string $path, string $separator = '.')
     unset($target);
 }
 
-function has_path(array $array, string $path, string $separator = '.'): bool
+function has_path(array $haystack, string $path, string $separator = '.'): bool
 {
     $key = trim($path, $separator);
     $keys = explode($separator, $key);
@@ -372,7 +372,7 @@ function has_path(array $array, string $path, string $separator = '.'): bool
         return false;
     }
 
-    $target = $array;
+    $target = $haystack;
     foreach ($keys as $innerKey) {
         if (! is_array($target) || ! array_key_exists($innerKey, $target)) {
             return false;
