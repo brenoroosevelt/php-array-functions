@@ -72,13 +72,12 @@ function remove(array &$set, ...$elements): int
     return $removed;
 }
 
-function all(iterable $items, callable $callback, bool $empty_is_valid = false): bool
+function all(iterable $items, callable $callback, bool $empty_is_valid = false, int $mode = 0): bool
 {
     $count = 0;
-    $args = __args($callback);
     foreach ($items as $key => $value) {
         $count++;
-        if (true !== call_user_func_array($callback, $args($key, $value))) {
+        if (true !== call_user_func_array($callback, __args($mode, $key, $value))) {
             return false;
         }
     }
@@ -86,22 +85,21 @@ function all(iterable $items, callable $callback, bool $empty_is_valid = false):
     return $empty_is_valid || $count > 0;
 }
 
-function some(iterable $items, callable $callback): bool
+function some(iterable $items, callable $callback, int $mode = 0): bool
 {
-    return at_least(1, $items, $callback);
+    return at_least(1, $items, $callback, $mode);
 }
 
-function none(iterable $items, callable $callback): bool
+function none(iterable $items, callable $callback, int $mode = 0): bool
 {
-    return ! some($items, $callback);
+    return ! some($items, $callback, $mode);
 }
 
-function at_least(int $n, iterable $items, callable $callback): bool
+function at_least(int $n, iterable $items, callable $callback, int $mode = 0): bool
 {
     $count = 0;
-    $args = __args($callback);
     foreach ($items as $key => $value) {
-        if (true === call_user_func_array($callback, $args($key, $value))) {
+        if (true === call_user_func_array($callback, __args($mode, $key, $value))) {
             $count++;
             if ($count >= $n) {
                 return true;
@@ -112,12 +110,11 @@ function at_least(int $n, iterable $items, callable $callback): bool
     return $count >= $n;
 }
 
-function at_most(int $n, iterable $items, callable $callback): bool
+function at_most(int $n, iterable $items, callable $callback, int $mode = 0): bool
 {
     $count = 0;
-    $args = __args($callback);
     foreach ($items as $key => $value) {
-        if (true === call_user_func_array($callback, $args($key, $value))) {
+        if (true === call_user_func_array($callback, __args($mode, $key, $value))) {
             $count++;
             if ($count > $n) {
                 return false;
@@ -128,12 +125,11 @@ function at_most(int $n, iterable $items, callable $callback): bool
     return $count <= $n;
 }
 
-function exactly(int $n, iterable $items, callable $callback): bool
+function exactly(int $n, iterable $items, callable $callback, int $mode = 0): bool
 {
     $count = 0;
-    $args = __args($callback);
     foreach ($items as $key => $value) {
-        if (true === call_user_func_array($callback, $args($key, $value))) {
+        if (true === call_user_func_array($callback, __args($mode, $key, $value))) {
             $count++;
             if ($count > $n) {
                 return false;
@@ -144,11 +140,10 @@ function exactly(int $n, iterable $items, callable $callback): bool
     return $count === $n;
 }
 
-function first(iterable $items, callable $callback, $default = null)
+function first(iterable $items, callable $callback, $default = null, int $mode = 0)
 {
-    $args = __args($callback);
     foreach ($items as $key => $value) {
-        if (true === call_user_func_array($callback, $args($key, $value))) {
+        if (true === call_user_func_array($callback, __args($mode, $key, $value))) {
             return $value;
         }
     }
@@ -156,24 +151,21 @@ function first(iterable $items, callable $callback, $default = null)
     return $default;
 }
 
-function map(iterable $items, callable $callback): array
+function map(iterable $items, callable $callback, int $mode = 0): array
 {
     $result = [];
-    $args = __args($callback);
     foreach ($items as $key => $value) {
-        $mapped = call_user_func_array($callback, $args($key, $value));
-        $result[$key] = $mapped;
+        $result[$key] = call_user_func_array($callback, __args($mode, $key, $value));
     }
 
     return $result;
 }
 
-function accept(iterable $items, callable $callback): array
+function accept(iterable $items, callable $callback, int $mode = 0): array
 {
     $result = [];
-    $args = __args($callback);
     foreach ($items as $key => $value) {
-        if (true === call_user_func_array($callback, $args($key, $value))) {
+        if (true === call_user_func_array($callback, __args($mode, $key, $value))) {
             $result[$key] = $value;
         }
     }
@@ -181,12 +173,11 @@ function accept(iterable $items, callable $callback): array
     return $result;
 }
 
-function reject(iterable $items, callable $callback): array
+function reject(iterable $items, callable $callback, int $mode = 0): array
 {
     $result = [];
-    $args = __args($callback);
     foreach ($items as $key => $value) {
-        if (true !== call_user_func_array($callback, $args($key, $value))) {
+        if (true !== call_user_func_array($callback, __args($mode, $key, $value))) {
             $result[$key] = $value;
         }
     }
@@ -233,23 +224,21 @@ function paginate(array $items, int $page, int $per_page, bool $preserve_keys = 
  * @param callable $callback thar returns an int|float
  * @return int|float
  */
-function sum_values(iterable $items, callable $callback)
+function sum_values(iterable $items, callable $callback, int $mode = 0)
 {
     $sum = 0;
-    $args = __args($callback);
     foreach ($items as $key => $value) {
-        $sum += call_user_func_array($callback, $args($key, $value));
+        $sum += call_user_func_array($callback, __args($mode, $key, $value));
     }
 
     return $sum;
 }
 
-function count_values(iterable $items, callable $callback): int
+function count_values(iterable $items, callable $callback, int $mode = 0): int
 {
     $count = 0;
-    $args = __args($callback);
     foreach ($items as $key => $value) {
-        if (true === call_user_func_array($callback, $args($key, $value))) {
+        if (true === call_user_func_array($callback, _args($mode, $key, $value))) {
             $count++;
         }
     }
@@ -257,12 +246,11 @@ function count_values(iterable $items, callable $callback): int
     return $count;
 }
 
-function group_by(iterable $items, callable $callback): array
+function group_by(iterable $items, callable $callback, int $mode = 0): array
 {
     $group = [];
-    $args = __args($callback);
     foreach ($items as $key => $value) {
-        $group[call_user_func_array($callback, $args($key, $value))][] = $value;
+        $group[call_user_func_array($callback, __args($mode, $key, $value))][] = $value;
     }
 
     return $group;
@@ -385,9 +373,10 @@ function has_path(array $haystack, string $path, string $separator = '.'): bool
 }
 
 /** @internal */
-function __args(callable $callback): callable
+function __args(int $mode, $k, $v): array
 {
-    $num_args = (new \ReflectionFunction(\Closure::fromCallable($callback)))->getNumberOfParameters();
+    $args[ARRAY_FILTER_USE_KEY] = [$k];
+    $args[ARRAY_FILTER_USE_BOTH] = [$v, $k];
 
-    return fn ($k, $v) => $num_args > 1 ? [$v, $k] : [$v];
+    return $args[$mode] ?? [$v];
 }
