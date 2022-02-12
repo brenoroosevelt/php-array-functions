@@ -10,7 +10,7 @@ class ArrayUtilsTest extends TestCase
 {
     public function test_all()
     {
-        $r = all([1,2,], 'is_numeric');
+        $r = all([1,2,], 'empty');
         $this->assertTrue($r);
     }
 }

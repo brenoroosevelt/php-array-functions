@@ -3,6 +3,84 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt;
 
+function index_of(iterable $array, $element, bool $strict = true)
+{
+    if (is_array($array)) {
+        return array_search($element, $array, $strict);
+    }
+
+    foreach ($array as $index => $value) {
+        if (($strict === true && $element === $value) ||
+            ($strict === false && $element == $value)
+        ) {
+            return $index;
+        }
+    }
+
+    return false;
+}
+
+function contains(iterable $set, $element, bool $strict = true): bool
+{
+    return index_of($set, $element, $strict) !== false;
+}
+
+function contains_all(iterable $set, iterable $elements, bool $strict = true): bool
+{
+    foreach ($elements as $element) {
+        if (! contains($set, $element, $strict)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function contains_any(iterable $set, iterable $elements, bool $strict = true): bool
+{
+    foreach ($elements as $element) {
+        if (contains($set, $element, $strict)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function add(array &$set, ...$elements): int
+{
+    $count = 0;
+    foreach ($elements as $element) {
+        if (! contains($set, $element)) {
+            $set[] = $element;
+            $count++;
+        }
+    }
+
+    return $count;
+}
+
+function remove(array &$set, $element, bool $strict = true): int
+{
+    $removed = 0;
+    while (false !== ($index = index_of($set, $element, $strict))) {
+        unset($set[$index]);
+        $removed++;
+    }
+
+    return $removed;
+}
+
+function remove_many(array &$set, iterable $elements, bool $strict = true): int
+{
+    $removed = 0;
+    foreach ($elements as $element) {
+        $removed += remove($set, $element,$strict);
+    }
+
+    return $removed;
+}
+
 function all(iterable $array, callable $callback, bool $empty_is_valid = false): bool
 {
     $count = 0;
@@ -119,23 +197,6 @@ function reject(iterable $array, callable $callback): array
     return accept($array, fn ($v, $k) => ! call_user_func_array($callback, $args($k, $v)));
 }
 
-function index_of(iterable $array, $element, bool $strict = true)
-{
-    if (is_array($array)) {
-        return array_search($element, $array, $strict);
-    }
-
-    foreach ($array as $index => $value) {
-        if (($strict === true && $element === $value) ||
-            ($strict === false && $element == $value)
-        ) {
-            return $index;
-        }
-    }
-
-    return false;
-}
-
 function column(iterable $array, $column): array
 {
     $result = [];
@@ -151,52 +212,6 @@ function column(iterable $array, $column): array
 function append_valid(array &$array, iterable $values, callable $callback): void
 {
     array_push($array, ...accept($values, $callback));
-}
-
-function push_element(array &$array, $element, bool $strict = true): bool
-{
-    if (! in_array($element, $array, $strict)) {
-        $array[] = $element;
-
-        return true;
-    }
-
-    return false;
-}
-
-function push_elements(array &$array, array $elements, $strict = true): int
-{
-    $count = 0;
-    foreach ($elements as $element) {
-        if (true === push_element($array, $element, $strict)) {
-            $count++;
-        }
-    }
-
-    return $count;
-}
-
-function remove_element(array &$array, $element, bool $strict = true): bool
-{
-    $index = index_of($array, $element, $strict);
-    if ($index === false) {
-        return false;
-    }
-
-    unset($array[$index]);
-
-    return true;
-}
-
-function remove_elements(array &$array, $element, bool $strict = true): int
-{
-    $removed = 0;
-    while (false !== ($index = index_of($array, $element, $strict))) {
-        unset($array[$index]);
-        $removed++;
-    }
-
-    return $removed;
 }
 
 function only_keys(iterable $array, array $keys): array
