@@ -87,7 +87,7 @@ function map(iterable $array, callable $callback): array
     $result = [];
     foreach ($array as $key => $value) {
         $mapped = call_user_func_array($callback, _callback_args($callback, $key, $value));
-            $result[$key] = $mapped;
+        $result[$key] = $mapped;
     }
 
     return $result;
