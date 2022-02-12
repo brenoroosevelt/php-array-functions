@@ -97,12 +97,12 @@ function map(iterable $array, callable $callback, bool $preserveKeys = true): ar
     return $result;
 }
 
-function accept(iterable $array, callable $callback, bool $preserveKeys = true): array
+function accept(iterable $array, callable $callback, bool $preserve_keys = true): array
 {
     $result = [];
     foreach ($array as $key => $value) {
         if (true === call_user_func_array($callback, [$value, $key])) {
-            if ($preserveKeys) {
+            if ($preserve_keys) {
                 $result[$key] = $value;
             } else {
                 $result[] = $value;
