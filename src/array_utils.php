@@ -154,8 +154,9 @@ function append_valid(array &$array, iterable $values, callable $callback): void
 
 function push_element(array &$array, $element, bool $strict = true): bool
 {
-    if (!in_array($element, $array, $strict)) {
+    if (! in_array($element, $array, $strict)) {
         $array[] = $element;
+
         return true;
     }
 
@@ -166,7 +167,7 @@ function push_elements(array &$array, array $elements, $strict = true): int
 {
     $count = 0;
     foreach ($elements as $element) {
-        if(true === push_element($array, $element, $strict)) {
+        if (true === push_element($array, $element, $strict)) {
             $count++;
         }
     }
@@ -182,6 +183,7 @@ function remove_element(array &$array, $element, bool $strict = true): bool
     }
 
     unset($array[$index]);
+
     return true;
 }
 
