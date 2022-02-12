@@ -75,7 +75,7 @@ function remove_many(array &$set, iterable $elements, bool $strict = true): int
 {
     $removed = 0;
     foreach ($elements as $element) {
-        $removed += remove($set, $element,$strict);
+        $removed += remove($set, $element, $strict);
     }
 
     return $removed;
