@@ -51,7 +51,7 @@ function add(array &$set, ...$elements): int
 {
     $count = 0;
     foreach ($elements as $element) {
-        if (! contains($set, $element)) {
+        if (! in_array($element, $set, true)) {
             $set[] = $element;
             $count++;
         }
@@ -60,22 +60,13 @@ function add(array &$set, ...$elements): int
     return $count;
 }
 
-function remove(array &$set, $element, bool $strict = true): int
-{
-    $removed = 0;
-    while (false !== ($index = index_of($set, $element, $strict))) {
-        unset($set[$index]);
-        $removed++;
-    }
-
-    return $removed;
-}
-
-function remove_many(array &$set, iterable $elements, bool $strict = true): int
+function remove(array &$set, ...$elements): int
 {
     $removed = 0;
     foreach ($elements as $element) {
-        $removed += remove($set, $element,$strict);
+        foreach (array_keys($set, $element, true) as $index) {
+            unset($set[$index]);
+        }
     }
 
     return $removed;
@@ -192,9 +183,30 @@ function accept(iterable $array, callable $callback): array
 
 function reject(iterable $array, callable $callback): array
 {
+    $result = [];
     $args = __args($callback);
+    foreach ($array as $key => $value) {
+        if (true !== call_user_func_array($callback, $args($key, $value))) {
+            $result[$key] = $value;
+        }
+    }
 
-    return accept($array, fn ($v, $k) => ! call_user_func_array($callback, $args($k, $v)));
+    return $result;
+}
+
+function has_key(array $array, ...$keys): bool
+{
+    return !array_diff($keys, array_keys($array));
+}
+
+function only_keys(array $array, ...$keys): array
+{
+    return array_intersect_key($array, array_flip($keys));
+}
+
+function except_keys(array $array, ...$keys): array
+{
+    return array_diff_key($array, array_flip($keys));
 }
 
 function column(iterable $array, $column): array
@@ -207,21 +219,6 @@ function column(iterable $array, $column): array
     }
 
     return $result;
-}
-
-function append_valid(array &$array, iterable $values, callable $callback): void
-{
-    array_push($array, ...accept($values, $callback));
-}
-
-function only_keys(iterable $array, array $keys): array
-{
-    return accept($array, fn ($v, $k) => in_array($k, $keys));
-}
-
-function except_keys(iterable $array, array $keys): array
-{
-    return reject($array, fn ($v, $k) => in_array($k, $keys));
 }
 
 function paginate(array $array, int $page, int $per_page, bool $preserve_keys = true): array
