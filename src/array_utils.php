@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt;
 
-function all(iterable $array, callable $callback): bool
+function all(iterable $array, callable $callback, bool $empty_is_valid = false): bool
 {
     $count = 0;
     foreach ($array as $key => $value) {
@@ -13,7 +13,7 @@ function all(iterable $array, callable $callback): bool
         }
     }
 
-    return $count > 0;
+    return $empty_is_valid || $count > 0;
 }
 
 function some(iterable $array, callable $callback): bool
@@ -147,19 +147,45 @@ function column(iterable $array, $column): array
     return $result;
 }
 
-function remove_first(array &$array, $element, bool $strict = true): bool
+function append_valid(array &$array, iterable $values, callable $callback): void
 {
-    $index = index_of($array, $element, $strict);
-    if ($index !== false) {
-        unset($array[$index]);
+    array_push($array, ...accept($values, $callback));
+}
 
+function push_element(array &$array, $element, bool $strict = true): bool
+{
+    if (!in_array($element, $array, $strict)) {
+        $array[] = $element;
         return true;
     }
 
     return false;
 }
 
-function remove_all(array &$array, $element, bool $strict = true): int
+function push_elements(array &$array, array $elements, $strict = true): int
+{
+    $count = 0;
+    foreach ($elements as $element) {
+        if(true === push_element($array, $element, $strict)) {
+            $count++;
+        }
+    }
+
+    return $count;
+}
+
+function remove_element(array &$array, $element, bool $strict = true): bool
+{
+    $index = index_of($array, $element, $strict);
+    if ($index === false) {
+        return false;
+    }
+
+    unset($array[$index]);
+    return true;
+}
+
+function remove_elements(array &$array, $element, bool $strict = true): int
 {
     $removed = 0;
     while (false !== ($index = index_of($array, $element, $strict))) {
@@ -177,7 +203,7 @@ function only_keys(iterable $array, array $keys): array
 
 function except_keys(iterable $array, array $keys): array
 {
-    return accept($array, fn ($v, $k) => ! in_array($k, $keys));
+    return reject($array, fn ($v, $k) => in_array($k, $keys));
 }
 
 function paginate(array $array, int $page, int $per_page, bool $preserve_keys = true): array
@@ -222,11 +248,6 @@ function group_by(iterable $array, callable $callback): array
     }
 
     return $group;
-}
-
-function append(array &$array, iterable $values, callable $callback): void
-{
-    array_push($array, ...accept($values, $callback));
 }
 
 function flatten(array $array, ?string $separator = null)
