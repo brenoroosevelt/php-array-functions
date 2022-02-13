@@ -11,6 +11,7 @@ class ContainsTest extends TestCase
     public function containsProvider(): array
     {
         $anObject = new \stdClass();
+        
         return [
             'case_1' => [
                 ['a', 'b', 'c'],
