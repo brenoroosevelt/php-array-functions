@@ -5,6 +5,7 @@ namespace BrenoRoosevelt\Tests;
 
 use function BrenoRoosevelt\index_of;
 use PHPUnit\Framework\TestCase;
+use function BrenoRoosevelt\pipe;
 
 class IndexOfTest extends TestCase
 {
