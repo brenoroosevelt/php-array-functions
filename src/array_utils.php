@@ -246,6 +246,7 @@ function max_value(iterable $items, callable $callback, int $mode = 0)
     $max = null;
     foreach ($items as $item) {
         $max = $item;
+
         break;
     }
 
@@ -264,6 +265,7 @@ function min_value(iterable $items, callable $callback, int $mode = 0)
     $min = null;
     foreach ($items as $item) {
         $min = $item;
+
         break;
     }
 
