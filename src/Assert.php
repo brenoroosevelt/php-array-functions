@@ -14,6 +14,7 @@ final class Assert
     {
         $assert = new self;
         $assert->values = $values;
+
         return $assert;
     }
 
@@ -26,7 +27,7 @@ final class Assert
     public function is($constraint, $error = 'Invalid input'): self
     {
         $is_valid = is_bool($constraint) ? $constraint : call_user_func_array($constraint, $this->values);
-        if (!$is_valid) {
+        if (! $is_valid) {
             throw $error instanceof Throwable ? $error : new AssertionError(is_string($error) ? $error : '');
         }
 
