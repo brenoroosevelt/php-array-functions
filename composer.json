@@ -1,12 +1,12 @@
 {
-    "name": "brenoroosvelt/array-functions",
+    "name": "brenoroosevelt/array-functions",
     "description": "Array functions that are missing in PHP",
     "keywords": [
         "array",
         "helper",
         "function"
     ],
-    "homepage": "https://github.com/brenoroosevelt/php-array-utils",
+    "homepage": "https://github.com/brenoroosevelt/php-array-functions",
     "license": "MIT",
     "authors": [
         {
@@ -22,7 +22,7 @@
     },
     "autoload": {
         "files": [
-            "src/array_utils.php"
+            "src/array_functions.php"
         ]
     },
     "autoload-dev": {
