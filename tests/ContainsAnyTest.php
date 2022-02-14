@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt\Tests;
 
-use function BrenoRoosevelt\contains_all;
+use function BrenoRoosevelt\contains_any;
 use PHPUnit\Framework\TestCase;
 
-class ContainsAllTest extends TestCase
+class ContainsAnyTest extends TestCase
 {
-    public function containsAllProvider(): array
+    public function containsAnyProvider(): array
     {
         return [
             'case_1' => [
@@ -61,7 +61,7 @@ class ContainsAllTest extends TestCase
                 ['a', 'b', 'c'],
                 ['a', 'b', 'c', 'd'],
                 true,
-                false,
+                true,
             ],
             'case_7' => [
                 [0, false],
@@ -71,7 +71,7 @@ class ContainsAllTest extends TestCase
             ],
             'case_8' => [
                 [0, 1, 1, 1, 2, 2],
-                [1, 1, 0],
+                [1, 1, 0, 15],
                 true,
                 true,
             ],
@@ -84,11 +84,11 @@ class ContainsAllTest extends TestCase
      * @param bool $strict
      * @param bool $expected
      * @return void
-     * @dataProvider containsAllProvider
+     * @dataProvider containsAnyProvider
      */
-    public function testContainsAll(iterable $items, array $elements, bool $strict, bool $expected): void
+    public function testContainsAny(iterable $items, array $elements, bool $strict, bool $expected): void
     {
-        $actual = contains_all($items, $elements, $strict);
+        $actual = contains_any($items, $elements, $strict);
         $this->assertEquals($expected, $actual);
     }
 }
