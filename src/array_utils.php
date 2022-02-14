@@ -87,7 +87,7 @@ function remove(array &$set, ...$elements): int
     return $removed;
 }
 
-function all(iterable $items, callable $callback, bool $empty_is_valid = false, int $mode = CALLBACK_USE_VALUE): bool
+function all(iterable $items, callable $callback, bool $empty_is_valid = true, int $mode = CALLBACK_USE_VALUE): bool
 {
     $count = 0;
     foreach ($items as $key => $value) {
