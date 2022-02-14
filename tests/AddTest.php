@@ -5,6 +5,7 @@ namespace BrenoRoosevelt\Tests;
 
 use function BrenoRoosevelt\add;
 use PHPUnit\Framework\TestCase;
+use const BrenoRoosevelt\CALLBACK_USE_BOTH;
 
 class AddTest extends TestCase
 {

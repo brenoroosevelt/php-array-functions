@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt;
 
+const CALLBACK_USE_VALUE = 0;
+const CALLBACK_USE_KEY = 1;
+const CALLBACK_USE_BOTH = 2;
+
 function index_of(iterable $items, $element, bool $strict = true)
 {
     if (is_array($items)) {
@@ -96,7 +100,7 @@ function all(iterable $items, callable $callback, bool $empty_is_valid = false, 
     return $empty_is_valid || $count > 0;
 }
 
-function some(iterable $items, callable $callback, int $mode = 0): bool
+function some(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
 {
     return at_least(1, $items, $callback, $mode);
 }
@@ -106,7 +110,7 @@ function none(iterable $items, callable $callback, int $mode = 0): bool
     return ! some($items, $callback, $mode);
 }
 
-function at_least(int $n, iterable $items, callable $callback, int $mode = 0): bool
+function at_least(int $n, iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
 {
     $count = 0;
     foreach ($items as $key => $value) {
@@ -121,7 +125,7 @@ function at_least(int $n, iterable $items, callable $callback, int $mode = 0): b
     return $count >= $n;
 }
 
-function at_most(int $n, iterable $items, callable $callback, int $mode = 0): bool
+function at_most(int $n, iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
 {
     $count = 0;
     foreach ($items as $key => $value) {
@@ -136,7 +140,7 @@ function at_most(int $n, iterable $items, callable $callback, int $mode = 0): bo
     return $count <= $n;
 }
 
-function exactly(int $n, iterable $items, callable $callback, int $mode = 0): bool
+function exactly(int $n, iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
 {
     $count = 0;
     foreach ($items as $key => $value) {
@@ -151,7 +155,7 @@ function exactly(int $n, iterable $items, callable $callback, int $mode = 0): bo
     return $count === $n;
 }
 
-function first(iterable $items, callable $callback, $default = null, int $mode = 0)
+function first(iterable $items, callable $callback, $default = null, int $mode = CALLBACK_USE_VALUE)
 {
     foreach ($items as $key => $value) {
         if (true === call_user_func_array($callback, __args($mode, $key, $value))) {
@@ -171,7 +175,7 @@ function head(iterable $items, $default = null)
     return $default;
 }
 
-function map(iterable $items, callable $callback, int $mode = 0): array
+function map(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): array
 {
     $result = [];
     foreach ($items as $key => $value) {
@@ -181,7 +185,7 @@ function map(iterable $items, callable $callback, int $mode = 0): array
     return $result;
 }
 
-function accept(iterable $items, callable $callback, int $mode = 0): array
+function accept(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): array
 {
     $result = [];
     foreach ($items as $key => $value) {
@@ -193,7 +197,7 @@ function accept(iterable $items, callable $callback, int $mode = 0): array
     return $result;
 }
 
-function reject(iterable $items, callable $callback, int $mode = 0): array
+function reject(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): array
 {
     $result = [];
     foreach ($items as $key => $value) {
@@ -249,7 +253,7 @@ function sum_values(iterable $items, callable $callback, int $mode = 0)
     return $sum;
 }
 
-function count_values(iterable $items, callable $callback, int $mode = 0): int
+function count_values(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): int
 {
     $count = 0;
     foreach ($items as $key => $value) {
@@ -261,7 +265,7 @@ function count_values(iterable $items, callable $callback, int $mode = 0): int
     return $count;
 }
 
-function max_value(iterable $items, callable $callback, int $mode = 0)
+function max_value(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE)
 {
     $max = null;
     foreach ($items as $item) {
@@ -280,7 +284,7 @@ function max_value(iterable $items, callable $callback, int $mode = 0)
     return $max;
 }
 
-function min_value(iterable $items, callable $callback, int $mode = 0)
+function min_value(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE)
 {
     $min = null;
     foreach ($items as $item) {
@@ -299,7 +303,7 @@ function min_value(iterable $items, callable $callback, int $mode = 0)
     return $min;
 }
 
-function group_by(iterable $items, callable $callback, int $mode = 0): array
+function group_by(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): array
 {
     $group = [];
     foreach ($items as $key => $value) {
@@ -437,8 +441,8 @@ function pipe($payload, callable ...$stages)
 /** @internal */
 function __args(int $mode, $k, $v): array
 {
-    $args[ARRAY_FILTER_USE_KEY] = [$k];
-    $args[ARRAY_FILTER_USE_BOTH] = [$v, $k];
+    $args[CALLBACK_USE_KEY] = [$k];
+    $args[CALLBACK_USE_BOTH] = [$v, $k];
 
     return $args[$mode] ?? [$v];
 }
