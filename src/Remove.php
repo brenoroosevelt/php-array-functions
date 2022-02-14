@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt;
 
-
 /**
  * Remove all provided elements from the collection
  * This function uses strict comparison to find and remove elements
