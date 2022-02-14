@@ -89,7 +89,10 @@ function remove_key(array &$set, ...$keys): int
 {
     $removed = 0;
     foreach ($keys as $key) {
-        unset($set[$key]);
+        if (array_key_exists($key, $set)) {
+            unset($set[$key]);
+            $removed++;
+        }
     }
 
     return $removed;
@@ -106,16 +109,6 @@ function pull(array &$set, $key, $default = null)
 function reindex(array &$items): void
 {
     $items = array_values($items);
-}
-
-
-function each(iterable $items, callable $callback, bool $stoppable = false, int $mode = CALLBACK_USE_VALUE): void
-{
-    foreach ($items as $k => $v) {
-        if ($stoppable && true !== call_user_func_array($callback, __args($mode, $k, $v))) {
-            break;
-        }
-    }
 }
 
 function all(iterable $items, callable $callback, bool $empty_is_valid = true, int $mode = CALLBACK_USE_VALUE): bool
