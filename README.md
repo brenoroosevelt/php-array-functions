@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/brenoroosevelt/php-array-functions/branch/main/graph/badge.svg?token=S1QBA18IBX)](https://codecov.io/gh/brenoroosevelt/php-array-functions)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md)
 
-A set of helpful functions that are missing in PHP.
+A set of helpful array/iterables functions that are missing in PHP.
 
 ## Requirements
 
