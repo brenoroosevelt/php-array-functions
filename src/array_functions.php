@@ -254,4 +254,3 @@ function group_by(iterable $items, callable $callback, int $mode = CALLBACK_USE_
 
     return $group;
 }
-
