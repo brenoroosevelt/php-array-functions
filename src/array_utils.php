@@ -87,6 +87,16 @@ function remove(array &$set, ...$elements): int
     return $removed;
 }
 
+function remove_key(array &$set, ...$keys): int
+{
+    $removed = 0;
+    foreach ($keys as $key) {
+        unset($set[$key]);
+    }
+
+    return $removed;
+}
+
 function all(iterable $items, callable $callback, bool $empty_is_valid = true, int $mode = CALLBACK_USE_VALUE): bool
 {
     $count = 0;
