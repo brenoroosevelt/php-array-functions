@@ -5,6 +5,7 @@ namespace BrenoRoosevelt\Tests;
 
 use function BrenoRoosevelt\contains_all;
 use PHPUnit\Framework\TestCase;
+use function BrenoRoosevelt\contains_any;
 
 class ContainsAllTest extends TestCase
 {
