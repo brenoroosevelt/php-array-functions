@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt\Tests;
 
-use PHPUnit\Framework\TestCase;
 use function BrenoRoosevelt\contains_all;
+use PHPUnit\Framework\TestCase;
 
 class ContainsAllTest extends TestCase
 {
