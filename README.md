@@ -65,6 +65,9 @@ function add(array &$set, ...$elements): int
  * The element index (key) is irrelevant for this operation
  * This function uses strict comparison to find and remove elements
  *
+ * @example $set = [1, 1, 2, 3, 4]
+ * remove($set, 1, 3) will return 3 (int) and $set will contain [2, 4]
+ * 
  * @param array $set The collection
  * @param mixed ...$elements Elements to be removed
  * @return int The number of removed elements
