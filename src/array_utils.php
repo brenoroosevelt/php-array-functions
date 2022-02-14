@@ -97,6 +97,14 @@ function remove_key(array &$set, ...$keys): int
     return $removed;
 }
 
+function pull(array &$set, $key, $default = null)
+{
+    $value = $set[$key] ?? $default;
+    unset($set[$key]);
+
+    return $value;
+}
+
 function all(iterable $items, callable $callback, bool $empty_is_valid = true, int $mode = CALLBACK_USE_VALUE): bool
 {
     $count = 0;
