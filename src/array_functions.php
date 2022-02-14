@@ -10,9 +10,9 @@ const CALLBACK_USE_BOTH = 2;
 /**
  * Searches the iterable for a given element and returns the first corresponding key (index) if successful
  *
- * @param iterable $haystack The iterable collection
- * @param mixed $element The searched element
- * @param bool $strict If the third parameter strict is set to true then will also check the types of the needle
+ * @param  iterable $haystack The iterable collection
+ * @param  mixed    $element  The searched element
+ * @param  bool     $strict   If the third parameter strict is set to true then will also check the types of the needle
  * @return false|int|string the key for needle if it is found in the array, false otherwise.
  */
 function index_of(iterable $haystack, $element, bool $strict = true)
@@ -22,8 +22,8 @@ function index_of(iterable $haystack, $element, bool $strict = true)
     }
 
     foreach ($haystack as $index => $value) {
-        if (($strict === true && $element === $value) ||
-            ($strict === false && $element == $value)
+        if (($strict === true && $element === $value)
+            || ($strict === false && $element == $value)
         ) {
             return $index;
         }
@@ -37,8 +37,8 @@ function index_of(iterable $haystack, $element, bool $strict = true)
  * The element index (key) is irrelevant for this operation
  * This function uses strict comparison to determine if element exists
  *
- * @param iterable $items The collection
- * @param mixed ...$elements The searched elements
+ * @param  iterable $items       The collection
+ * @param  mixed    ...$elements The searched elements
  * @return bool True if ALL elements were found in the collection, false otherwise
  */
 function contains(iterable $items, ...$elements): bool
@@ -57,8 +57,8 @@ function contains(iterable $items, ...$elements): bool
  * The element index (key) is irrelevant for this operation.
  * This function uses strict comparison to determine if element exists
  *
- * @param array $set The collection
- * @param mixed ...$elements Elements to be added
+ * @param  array $set         The collection
+ * @param  mixed ...$elements Elements to be added
  * @return int The number of items added to the collection
  */
 function add(array &$set, ...$elements): int
@@ -84,9 +84,9 @@ function add(array &$set, ...$elements): int
  * @example $set = ['a' => 1, 2, 3, 4]
  * set($set, 1) $set will contain ['a' => 1, 2, 3, 4, 1]
  *
- * @param array $set The collection
- * @param mixed $element The element to be added
- * @param string|int $key The key/index of element
+ * @param  array      $set     The collection
+ * @param  mixed      $element The element to be added
+ * @param  string|int $key     The key/index of element
  * @return void
  */
 function set(array &$set, $element, $key = null): void
@@ -105,8 +105,8 @@ function set(array &$set, $element, $key = null): void
  * @example $set = [1, 1, 2, 3, 4]
  * remove($set, 1, 3) will return 3 (int) and $set will contain [2, 4]
  *
- * @param array $set The collection
- * @param mixed ...$elements Elements to be removed
+ * @param  array $set         The collection
+ * @param  mixed ...$elements Elements to be removed
  * @return int The number of removed elements
  */
 function remove(array &$set, ...$elements): int
@@ -498,7 +498,9 @@ function pipe($payload, callable ...$stages)
     return $payload;
 }
 
-/** @internal */
+/**
+ * @internal
+ */
 function __args(int $mode, $k, $v): array
 {
     $args[CALLBACK_USE_KEY] = [$k];
