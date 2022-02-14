@@ -408,6 +408,7 @@ function pipe($payload, callable ...$stages)
  */
 function __args(int $mode, $k, $v): array
 {
+    $args = [];
     $args[CALLBACK_USE_KEY] = [$k];
     $args[CALLBACK_USE_BOTH] = [$v, $k];
 
