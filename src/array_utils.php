@@ -111,10 +111,10 @@ function reindex(array &$items): void
 }
 
 
-function each(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): void
+function each(iterable $items, callable $callback, bool $stoppable = false, int $mode = CALLBACK_USE_VALUE): void
 {
     foreach ($items as $k => $v) {
-        if (true !== call_user_func_array($callback, __args($mode, $k, $v))) {
+        if ($stoppable && true !== call_user_func_array($callback, __args($mode, $k, $v))) {
             break;
         }
     }
