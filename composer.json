@@ -23,7 +23,15 @@
         "phpstan/phpstan": "^1"
     },
     "autoload": {
+        "psr-4": {
+            "BrenoRoosevelt\\": "src/"
+        },
         "files": [
+            "src/Constants.php",
+            "src/IndexOf.php",
+            "src/Contains.php",
+            "src/Add.php",
+            "src/Set.php",
             "src/array_functions.php"
         ]
     },
