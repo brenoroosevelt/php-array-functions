@@ -163,7 +163,7 @@ function first(iterable $items, callable $callback, $default = null, int $mode =
 function head(iterable $items, $default = null)
 {
     foreach ($items as $value) {
-            return $value;
+        return $value;
     }
 
     return $default;
