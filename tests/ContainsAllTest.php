@@ -80,15 +80,15 @@ class ContainsAllTest extends TestCase
 
     /**
      * @param iterable $items
-     * @param $element
+     * @param array $elements
      * @param bool $strict
      * @param bool $expected
      * @return void
      * @dataProvider containsProvider
      */
-    public function testContainsAll(iterable $items, $element, bool $strict, bool $expected): void
+    public function testContainsAll(iterable $items, array $elements, bool $strict, bool $expected): void
     {
-        $actual = contains_all($items, $element, $strict);
+        $actual = contains_all($items, $elements, $strict);
         $this->assertEquals($expected, $actual);
     }
 }
