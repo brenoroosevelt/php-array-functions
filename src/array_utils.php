@@ -60,6 +60,15 @@ function add(array &$set, ...$elements): int
     return $added;
 }
 
+function set(array &$set, $element, $key = null): void
+{
+    if ($key !== null) {
+        $set[$key] = $element;
+    } else {
+        $set[] = $element;
+    }
+}
+
 function remove(array &$set, ...$elements): int
 {
     $removed = 0;
@@ -151,6 +160,15 @@ function first(iterable $items, callable $callback, $default = null, int $mode =
     return $default;
 }
 
+function head(iterable $items, $default = null)
+{
+    foreach ($items as $value) {
+            return $value;
+    }
+
+    return $default;
+}
+
 function map(iterable $items, callable $callback, int $mode = 0): array
 {
     $result = [];
@@ -185,17 +203,17 @@ function reject(iterable $items, callable $callback, int $mode = 0): array
     return $result;
 }
 
-function has_key(array $items, ...$keys): bool
+function has(array $items, ...$keys): bool
 {
     return ! array_diff($keys, array_keys($items));
 }
 
-function only_keys(array $items, ...$keys): array
+function only(array $items, ...$keys): array
 {
     return array_intersect_key($items, array_flip($keys));
 }
 
-function except_keys(array $items, ...$keys): array
+function except(array $items, ...$keys): array
 {
     return array_diff_key($items, array_flip($keys));
 }
@@ -251,7 +269,7 @@ function max_value(iterable $items, callable $callback, int $mode = 0)
     }
 
     foreach ($items as $key => $value) {
-        $value == call_user_func_array($callback, __args($mode, $key, $value));
+        $value = call_user_func_array($callback, __args($mode, $key, $value));
         if ($value > $max) {
             $max = $value;
         }
@@ -270,7 +288,7 @@ function min_value(iterable $items, callable $callback, int $mode = 0)
     }
 
     foreach ($items as $key => $value) {
-        $value == call_user_func_array($callback, __args($mode, $key, $value));
+        $value = call_user_func_array($callback, __args($mode, $key, $value));
         if ($value < $min) {
             $min = $value;
         }
