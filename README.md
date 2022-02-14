@@ -1,7 +1,6 @@
 # PHP Array Functions
 
-[![Build](https://github.com/brenoroosevelt/php-array-functions/actions/workflows/ci.yml/badge.svg)](https://github.com/brenoroosevelt/php-array-functions/actions/workflows/ci.yml)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/brenoroosevelt/php-array-functions/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/brenoroosevelt/php-array-functions/?branch=main)
+[![CI Build](https://github.com/brenoroosevelt/php-array-functions/actions/workflows/run-tests.yml/badge.svg)](https://github.com/brenoroosevelt/php-array-functions/actions/workflows/run-tests.yml)[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/brenoroosevelt/php-array-functions/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/brenoroosevelt/php-array-functions/?branch=main)
 [![codecov](https://codecov.io/gh/brenoroosevelt/php-array-functions/branch/main/graph/badge.svg?token=S1QBA18IBX)](https://codecov.io/gh/brenoroosevelt/php-array-functions)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md)
 
