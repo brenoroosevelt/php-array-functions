@@ -10,13 +10,10 @@ class ContainsTest extends TestCase
 {
     public function containsProvider(): array
     {
-        $anObject = new \stdClass();
-
         return [
             'case_1' => [
                 ['a', 'b', 'c'],
-                'b',
-                true,
+                ['b'],
                 true,
             ],
             'case_2' => [
@@ -25,116 +22,67 @@ class ContainsTest extends TestCase
                     yield 'b';
                     yield 'c';
                 })(),
-                'b',
+                ['b'],
                 true,
-                true,
-            ],
-            'case_2_1' => [
-                (function (): \Generator {
-                    yield 'x' => 'a';
-                    yield 'y' => 'b';
-                    yield 'z' => 'c';
-                })(),
-                'b',
-                true,
-                true,
-            ],
-            'case_2_3' => [
-                (function (): \Generator {
-                    yield 'x' => 'a';
-                    yield 'y' => 'b';
-                    yield 'z' => 'c';
-                })(),
-                'x',
-                true,
-                false,
             ],
             'case_3' => [
-                new \ArrayObject(['a', 'b', 'c']),
-                'b',
-                true,
+                ['a', 'b', 'c'],
+                [],
                 true,
             ],
             'case_3_1' => [
-                new \ArrayObject(['a', 'b', 'c']),
-                0,
+                [],
+                [],
                 true,
+            ],
+            'case_3_2' => [
+                [],
+                [0],
                 false,
             ],
             'case_4' => [
-                [1, 2, 3, 4],
-                '2',
+                ['a', 'b', 'c'],
+                [0],
                 false,
-                true,
-            ],
-            'case_4_1' => [
-                new \ArrayObject([1, 2, 3, 4]),
-                '2',
-                false,
-                true,
             ],
             'case_5' => [
-                [],
-                0,
+                ['a', 'b', 'c'],
+                ['a', 'b', 'c'],
                 true,
-                false,
-            ],
-            'case_5_1' => [
-                [],
-                0,
-                false,
-                false,
-            ],
-            'case_5_2' => [
-                new \ArrayObject([]),
-                null,
-                false,
-                false,
             ],
             'case_6' => [
-                [],
-                0,
-                true,
+                ['a', 'b', 'c'],
+                ['a', 'b', 'c', 'd'],
                 false,
             ],
             'case_7' => [
-                [1, 2, $anObject, 3],
-                $anObject,
-                true,
-                true,
+                [0, false],
+                [''],
+                false,
             ],
             'case_8' => [
-                ['a' => 0, 'b' => null, 'c' => false],
-                null,
-                false,
+                [0, 1, 1, 1, 2, 2],
+                [1, 1, 0],
                 true,
             ],
-            'case_8_1' => [
-                ['a' => 0, 'b' => null, 'c' => false],
-                null,
-                true,
-                true,
-            ],
-            'case_8_2' => [
-                ['b' => null, 'c' => false],
-                '',
+            'case_9' => [
+                ['a' => 0, 'b' => 1, 1, 1, 2, 2],
+                ['a'],
                 false,
-                true,
             ],
         ];
     }
 
     /**
      * @param iterable $items
-     * @param $element
-     * @param bool $strict
+     * @param array $elements
      * @param bool $expected
      * @return void
      * @dataProvider containsProvider
      */
-    public function testContains(iterable $items, $element, bool $strict, bool $expected): void
+    public function testContainsAll(iterable $items, array $elements, bool $expected): void
     {
-        $actual = contains($items, $element, $strict);
+        $actual = contains($items, ...$elements);
         $this->assertEquals($expected, $actual);
     }
 }

@@ -24,31 +24,15 @@ function index_of(iterable $items, $element, bool $strict = true)
     return false;
 }
 
-function contains(iterable $items, $element, bool $strict = true): bool
-{
-    return index_of($items, $element, $strict) !== false;
-}
-
-function contains_all(iterable $items, iterable $elements, bool $strict = true): bool
+function contains(iterable $items, ...$elements): bool
 {
     foreach ($elements as $element) {
-        if (! contains($items, $element, $strict)) {
+        if (index_of($items, $element) === false) {
             return false;
         }
     }
 
     return true;
-}
-
-function contains_any(iterable $items, iterable $elements, bool $strict = true): bool
-{
-    foreach ($elements as $element) {
-        if (contains($items, $element, $strict)) {
-            return true;
-        }
-    }
-
-    return false;
 }
 
 function add(array &$set, ...$elements): int
