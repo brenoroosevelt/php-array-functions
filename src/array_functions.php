@@ -7,13 +7,21 @@ const CALLBACK_USE_VALUE = 0;
 const CALLBACK_USE_KEY = 1;
 const CALLBACK_USE_BOTH = 2;
 
-function index_of(iterable $items, $element, bool $strict = true)
+/**
+ * Searches the iterable for a given element and returns the first corresponding key (index) if successful
+ *
+ * @param iterable $haystack The iterable collection
+ * @param mixed $element The searched element
+ * @param bool $strict If the third parameter strict is set to true then will also check the types of the needle
+ * @return false|int|string the key for needle if it is found in the array, false otherwise.
+ */
+function index_of(iterable $haystack, $element, bool $strict = true)
 {
-    if (is_array($items)) {
-        return array_search($element, $items, $strict);
+    if (is_array($haystack)) {
+        return array_search($element, $haystack, $strict);
     }
 
-    foreach ($items as $index => $value) {
+    foreach ($haystack as $index => $value) {
         if (($strict === true && $element === $value) ||
             ($strict === false && $element == $value)
         ) {
@@ -24,6 +32,14 @@ function index_of(iterable $items, $element, bool $strict = true)
     return false;
 }
 
+/**
+ * Checks if ALL elements exists in a collection
+ * The element index (key) is irrelevant for this operation
+ *
+ * @param iterable $items The collection
+ * @param mixed ...$elements The searched elements
+ * @return bool True if ALL elements were found in the collection, false otherwise
+ */
 function contains(iterable $items, ...$elements): bool
 {
     foreach ($elements as $element) {
@@ -35,6 +51,14 @@ function contains(iterable $items, ...$elements): bool
     return true;
 }
 
+/**
+ * Adds elements to a collection if they don't exist yet (set behavior).
+ * The element index (key) is irrelevant for this operation
+ *
+ * @param array $set The collection
+ * @param mixed ...$elements Elements to be added
+ * @return int The number of items added to the collection
+ */
 function add(array &$set, ...$elements): int
 {
     $added = 0;
@@ -48,6 +72,15 @@ function add(array &$set, ...$elements): int
     return $added;
 }
 
+/**
+ * Adds or replace an element to a collection using an optional key/index.
+ * If the given key already exists in the collection, the corresponding value will be replaced by the element
+ *
+ * @param array $set The collection
+ * @param mixed $element The element to be added
+ * @param string|int $key The key/index of element
+ * @return void
+ */
 function set(array &$set, $element, $key = null): void
 {
     if ($key !== null) {
