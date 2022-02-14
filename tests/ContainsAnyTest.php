@@ -31,13 +31,13 @@ class ContainsAnyTest extends TestCase
                 ['a', 'b', 'c'],
                 [],
                 true,
-                true,
+                false,
             ],
             'case_3_1' => [
                 [],
                 [],
                 true,
-                true,
+                false,
             ],
             'case_3_2' => [
                 [],

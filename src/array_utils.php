@@ -42,15 +42,13 @@ function contains_all(iterable $items, iterable $elements, bool $strict = true):
 
 function contains_any(iterable $items, iterable $elements, bool $strict = true): bool
 {
-    $count = 0;
     foreach ($elements as $element) {
-        $count++;
         if (contains($items, $element, $strict)) {
             return true;
         }
     }
 
-    return $count === 0;
+    return false;
 }
 
 function add(array &$set, ...$elements): int
