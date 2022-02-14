@@ -36,7 +36,7 @@ class AddTest extends TestCase
                 ['x' => 'a', 'y' => 'b', 'c'],
                 ['x', 'y', 'a', 'b', 'b'],
                 ['x' => 'a', 'y' => 'b', 'c', 'x', 'y'],
-            ]
+            ],
         ];
     }
 
