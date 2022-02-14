@@ -105,6 +105,21 @@ function pull(array &$set, $key, $default = null)
     return $value;
 }
 
+function reindex(array &$items): void
+{
+    $items = array_values($items);
+}
+
+
+function each(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): void
+{
+    foreach ($items as $k => $v) {
+        if (true !== call_user_func_array($callback, __args($mode, $k, $v))) {
+            break;
+        }
+    }
+}
+
 function all(iterable $items, callable $callback, bool $empty_is_valid = true, int $mode = CALLBACK_USE_VALUE): bool
 {
     $count = 0;
