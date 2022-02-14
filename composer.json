@@ -32,6 +32,7 @@
             "src/Contains.php",
             "src/Add.php",
             "src/Set.php",
+            "src/Pipe.php",
             "src/array_functions.php"
         ]
     },

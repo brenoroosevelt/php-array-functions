@@ -393,12 +393,3 @@ function has_path(array $haystack, string $path, string $separator = '.'): bool
 
     return true;
 }
-
-function pipe($payload, callable ...$stages)
-{
-    foreach ($stages as $stage) {
-        $payload = $stage($payload);
-    }
-
-    return $payload;
-}
