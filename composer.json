@@ -33,6 +33,8 @@
             "src/Add.php",
             "src/Set.php",
             "src/Pipe.php",
+            "src/DotNotation.php",
+            "src/Remove.php",
             "src/array_functions.php"
         ]
     },
