@@ -35,6 +35,7 @@ function index_of(iterable $haystack, $element, bool $strict = true)
 /**
  * Checks if ALL elements exists in a collection
  * The element index (key) is irrelevant for this operation
+ * This function uses strict comparison to determine if element exists
  *
  * @param iterable $items The collection
  * @param mixed ...$elements The searched elements
@@ -53,7 +54,8 @@ function contains(iterable $items, ...$elements): bool
 
 /**
  * Adds elements to a collection if they don't exist yet (set behavior).
- * The element index (key) is irrelevant for this operation
+ * The element index (key) is irrelevant for this operation.
+ * This function uses strict comparison to determine if element exists
  *
  * @param array $set The collection
  * @param mixed ...$elements Elements to be added
@@ -90,6 +92,14 @@ function set(array &$set, $element, $key = null): void
     }
 }
 
+/**
+ * Remove all provided elements from the collection
+ * This function uses strict comparison to find and remove elements
+ *
+ * @param array $set The collection
+ * @param mixed ...$elements Elements to be removed
+ * @return int The number of removed elements
+ */
 function remove(array &$set, ...$elements): int
 {
     $removed = 0;

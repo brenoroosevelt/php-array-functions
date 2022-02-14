@@ -58,6 +58,20 @@ function contains(iterable $items, ...$elements): bool
 function add(array &$set, ...$elements): int
 ```
 
+### remove
+```php
+/**
+ * Remove all provided elements from the collection
+ * The element index (key) is irrelevant for this operation
+ * This function uses strict comparison to find and remove elements
+ *
+ * @param array $set The collection
+ * @param mixed ...$elements Elements to be removed
+ * @return int The number of removed elements
+ */
+function remove(array &$set, ...$elements): int
+```
+
 ## License
 
 This project is licensed under the terms of the MIT license. See the [LICENSE](LICENSE.md) file for license rights and limitations.
