@@ -402,15 +402,3 @@ function pipe($payload, callable ...$stages)
 
     return $payload;
 }
-
-/**
- * @internal
- */
-function __args(int $mode, $k, $v): array
-{
-    $args = [];
-    $args[CALLBACK_USE_KEY] = [$k];
-    $args[CALLBACK_USE_BOTH] = [$v, $k];
-
-    return $args[$mode] ?? [$v];
-}
