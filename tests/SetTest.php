@@ -3,9 +3,8 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt\Tests;
 
-use function BrenoRoosevelt\add;
-use PHPUnit\Framework\TestCase;
 use function BrenoRoosevelt\set;
+use PHPUnit\Framework\TestCase;
 
 class SetTest extends TestCase
 {
@@ -13,17 +12,17 @@ class SetTest extends TestCase
     {
         return [
             'case_1' => [
-                ['a' => 1, 'b' => 2, 'c'=> 3],
+                ['a' => 1, 'b' => 2, 'c' => 3],
                 1,
                 'b',
-                ['a' => 1, 'b' => 1, 'c'=> 3]
+                ['a' => 1, 'b' => 1, 'c' => 3],
             ],
             'case_2' => [
-                ['a' => 1, 'b' => 2, 'c'=> 3],
+                ['a' => 1, 'b' => 2, 'c' => 3],
                 1,
                 null,
-                ['a' => 1, 'b' => 2, 'c'=> 3, 1]
-            ]
+                ['a' => 1, 'b' => 2, 'c' => 3, 1],
+            ],
         ];
     }
 
