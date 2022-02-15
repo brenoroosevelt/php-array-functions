@@ -213,6 +213,11 @@ class DotNotationTest extends TestCase
                 'a.b',
                 true
             ],
+            'case_17' => [
+                ['a' => ['b' => 0]],
+                '',
+                false
+            ],
         ];
     }
 
