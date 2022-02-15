@@ -56,7 +56,7 @@ function unset_path(array &$haystack, string $path, string $separator = '.')
     $temp =& $haystack;
     while (count($keys) > 1) {
         $key = array_shift($keys);
-        if (array_key_exists($key, $temp) and is_array($temp[$key])) {
+        if (array_key_exists($key, $temp) && is_array($temp[$key])) {
             $temp =& $temp[$key];
         }
     }
@@ -73,13 +73,13 @@ function unset_path(array &$haystack, string $path, string $separator = '.')
 function has_path(array $haystack, string $path, string $separator = '.'): bool
 {
     $keys = explode($separator, $path);
-    $target = $haystack;
-    foreach ($keys as $innerKey) {
-        if (! is_array($target) || ! array_key_exists($innerKey, $target)) {
+    $temp = $haystack;
+    foreach ($keys as $key) {
+        if (! is_array($temp) || ! array_key_exists($key, $temp)) {
             return false;
         }
 
-        $target = $target[$innerKey];
+        $temp = $temp[$key];
     }
 
     return true;
