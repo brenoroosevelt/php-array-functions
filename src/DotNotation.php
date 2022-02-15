@@ -52,24 +52,16 @@ function get_path(array $haystack, string $path, $default = null, string $separa
  */
 function unset_path(array &$haystack, string $path, string $separator = '.')
 {
-    $key = trim($path, $separator);
-    $keys = explode($separator, $key);
-    if (empty($keys)) {
-        return;
-    }
-
-    $target = &$haystack;
-    foreach ($keys as $innerKey) {
-        if (! is_array($target)) {
-            break;
-        }
-
-        if (array_key_exists($innerKey, $target)) {
-            $target = &$target[$innerKey];
+    $keys = explode($separator, $path);
+    $temp =& $haystack;
+    while (count($keys) > 1) {
+        $key = array_shift($keys);
+        if (array_key_exists($key, $temp) and is_array($temp[$key])) {
+            $temp =& $temp[$key];
         }
     }
 
-    unset($target);
+    unset($temp[array_shift($keys)]);
 }
 
 /**
