@@ -24,27 +24,6 @@ function set_path(array &$haystack, string $path, $value, string $separator = '.
     }
 
     $temp = $value;
-//
-//    $key = trim($path, $separator);
-//    $keys = explode($separator, $key);
-//    if (empty($keys)) {
-//        return;
-//    }
-//
-//    $target = &$haystack;
-//    foreach ($keys as $innerKey) {
-//        if (! is_array($target)) {
-//            break;
-//        }
-//
-//        if (! array_key_exists($innerKey, $target)) {
-//            $target[$innerKey] = [];
-//        }
-//
-//        $target = &$target[$innerKey];
-//    }
-//
-//    $target = $value;
 }
 
 /**
@@ -59,35 +38,10 @@ function get_path(array $haystack, string $path, $default = null, string $separa
     return
         array_reduce(
             explode($separator, $path),
-            fn ($arr, $p) => is_array($arr) && array_key_exists($p, $arr) ? $arr[$p] : $default,
+            fn ($arr, $key) =>
+            $default!== $arr && is_array($arr) && array_key_exists($key, $arr) ? $arr[$key] : $default,
             $haystack
         );
-
-//    $path = explode($separator, $path); //if needed
-//    $temp =& $haystack;
-//
-//    foreach($path as $key) {
-//        $temp =& $temp[$key];
-//    }
-//
-//    return $temp;
-//
-//    $key = trim($path, $separator);
-//    $keys = explode($separator, $key);
-//    if (empty($keys)) {
-//        return $default;
-//    }
-//
-//    $target = $haystack;
-//    foreach ($keys as $innerKey) {
-//        if (! is_array($target) || ! array_key_exists($innerKey, $target)) {
-//            return $default;
-//        }
-//
-//        $target = $target[$innerKey];
-//    }
-//
-//    return $target;
 }
 
 /**
