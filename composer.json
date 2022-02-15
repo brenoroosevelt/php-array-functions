@@ -27,12 +27,13 @@
             "BrenoRoosevelt\\": "src/"
         },
         "files": [
-            "src/Constants.php",
+            "src/CallbackArgs.php",
             "src/IndexOf.php",
             "src/Contains.php",
             "src/Add.php",
             "src/Set.php",
             "src/Pipe.php",
+            "src/Flatten.php",
             "src/DotNotation.php",
             "src/Remove.php",
             "src/array_functions.php"
