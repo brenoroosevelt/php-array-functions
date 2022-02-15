@@ -18,9 +18,7 @@ function index_of(iterable $haystack, $element, bool $strict = true)
     }
 
     foreach ($haystack as $index => $value) {
-        if (($strict === true && $element === $value)
-            || ($strict === false && $element == $value)
-        ) {
+        if (($strict && $element === $value) || (!$strict && $element == $value)) {
             return $index;
         }
     }
