@@ -8,7 +8,7 @@ use function BrenoRoosevelt\flatten;
 
 class FlattenTest extends TestCase
 {
-    public function flattenProvider(): array
+    public function dataProvider(): array
     {
         return [
             'case_1' => [
@@ -82,7 +82,7 @@ class FlattenTest extends TestCase
      * @param string|null $separator
      * @param array $expected
      * @return void
-     * @dataProvider flattenProvider
+     * @dataProvider dataProvider
      */
     public function testFlatten(array $items, ?string $separator, array $expected): void
     {

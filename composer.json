@@ -34,6 +34,7 @@
             "src/Set.php",
             "src/Pipe.php",
             "src/Flatten.php",
+            "src/Expand.php",
             "src/DotNotation.php",
             "src/Remove.php",
             "src/array_functions.php"
