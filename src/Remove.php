@@ -20,6 +20,7 @@ function remove(array &$set, ...$elements): int
     foreach ($elements as $element) {
         foreach (array_keys($set, $element, true) as $index) {
             unset($set[$index]);
+            $removed++;
         }
     }
 
