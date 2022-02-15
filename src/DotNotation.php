@@ -12,26 +12,39 @@ namespace BrenoRoosevelt;
  */
 function set_path(array &$haystack, string $path, $value, string $separator = '.'): void
 {
-    $key = trim($path, $separator);
-    $keys = explode($separator, $key);
-    if (empty($keys)) {
-        return;
-    }
+    $path = explode($separator, $path);
+    $temp =& $haystack;
 
-    $target = &$haystack;
-    foreach ($keys as $innerKey) {
-        if (! is_array($target)) {
-            break;
+    foreach ($path as $key) {
+        if (!is_array($temp)) {
+            $temp = [];
         }
 
-        if (! array_key_exists($innerKey, $target)) {
-            $target[$innerKey] = [];
-        }
-
-        $target = &$target[$innerKey];
+        $temp =& $temp[$key];
     }
 
-    $target = $value;
+    $temp = $value;
+//
+//    $key = trim($path, $separator);
+//    $keys = explode($separator, $key);
+//    if (empty($keys)) {
+//        return;
+//    }
+//
+//    $target = &$haystack;
+//    foreach ($keys as $innerKey) {
+//        if (! is_array($target)) {
+//            break;
+//        }
+//
+//        if (! array_key_exists($innerKey, $target)) {
+//            $target[$innerKey] = [];
+//        }
+//
+//        $target = &$target[$innerKey];
+//    }
+//
+//    $target = $value;
 }
 
 /**
@@ -39,26 +52,42 @@ function set_path(array &$haystack, string $path, $value, string $separator = '.
  * @param string $path
  * @param $default
  * @param string $separator
- * @return array|mixed|null
+ * @return mixed
  */
 function get_path(array $haystack, string $path, $default = null, string $separator = '.')
 {
-    $key = trim($path, $separator);
-    $keys = explode($separator, $key);
-    if (empty($keys)) {
-        return $default;
-    }
+    return
+        array_reduce(
+            explode($separator, $path),
+            fn ($arr, $p) => is_array($arr) && array_key_exists($p, $arr) ? $arr[$p] : $default,
+            $haystack
+        );
 
-    $target = $haystack;
-    foreach ($keys as $innerKey) {
-        if (! is_array($target) || ! array_key_exists($innerKey, $target)) {
-            return $default;
-        }
-
-        $target = $target[$innerKey];
-    }
-
-    return $target;
+//    $path = explode($separator, $path); //if needed
+//    $temp =& $haystack;
+//
+//    foreach($path as $key) {
+//        $temp =& $temp[$key];
+//    }
+//
+//    return $temp;
+//
+//    $key = trim($path, $separator);
+//    $keys = explode($separator, $key);
+//    if (empty($keys)) {
+//        return $default;
+//    }
+//
+//    $target = $haystack;
+//    foreach ($keys as $innerKey) {
+//        if (! is_array($target) || ! array_key_exists($innerKey, $target)) {
+//            return $default;
+//        }
+//
+//        $target = $target[$innerKey];
+//    }
+//
+//    return $target;
 }
 
 /**
