@@ -72,9 +72,8 @@ function unset_path(array &$haystack, string $path, string $separator = '.')
  */
 function has_path(array $haystack, string $path, string $separator = '.'): bool
 {
-    $key = trim($path, $separator);
-    $keys = explode($separator, $key);
-    if (empty($keys)) {
+    $keys = explode($separator, $path);
+    if (count($keys) === 0) {
         return false;
     }
 
