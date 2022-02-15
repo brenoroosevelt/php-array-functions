@@ -13,14 +13,8 @@ namespace BrenoRoosevelt;
  */
 function index_of(iterable $haystack, $element, bool $strict = true)
 {
-    if (is_array($haystack)) {
-        return array_search($element, $haystack, $strict);
-    }
-
     foreach ($haystack as $index => $value) {
-        $matchStrict = $strict && $element === $value;
-        $matchNonStrict = !$strict && $element == $value;
-        if ($matchStrict || $matchNonStrict) {
+        if (($strict && $element === $value) || (!$strict && $element == $value)) {
             return $index;
         }
     }
