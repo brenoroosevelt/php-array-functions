@@ -41,6 +41,12 @@ class RemoveTest extends TestCase
                 [0],
                 0,
                 [],
+            ],
+            'case_6' => [
+                [[1, 2, 3]],
+                [1],
+                0,
+                [[1, 2, 3]],
             ]
         ];
     }
