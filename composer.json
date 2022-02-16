@@ -27,6 +27,7 @@
             "BrenoRoosevelt\\": "src/"
         },
         "files": [
+            "src/Accept.php",
             "src/Add.php",
             "src/All.php",
             "src/AtLeast.php",
