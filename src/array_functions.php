@@ -14,15 +14,6 @@ function first(iterable $items, callable $callback, $default = null, int $mode =
     return $default;
 }
 
-function head(iterable $items, $default = null)
-{
-    foreach ($items as $value) {
-        return $value;
-    }
-
-    return $default;
-}
-
 function map(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): array
 {
     $result = [];
