@@ -3,19 +3,6 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt;
 
-function remove_key(array &$set, ...$keys): int
-{
-    $removed = 0;
-    foreach ($keys as $key) {
-        if (array_key_exists($key, $set)) {
-            unset($set[$key]);
-            $removed++;
-        }
-    }
-
-    return $removed;
-}
-
 function pull(array &$set, $key, $default = null)
 {
     $value = $set[$key] ?? $default;

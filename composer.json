@@ -37,6 +37,7 @@
             "src/Expand.php",
             "src/DotNotation.php",
             "src/Remove.php",
+            "src/RemoveKey.php",
             "src/array_functions.php"
         ]
     },
