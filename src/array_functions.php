@@ -3,14 +3,6 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt;
 
-function pull(array &$set, $key, $default = null)
-{
-    $value = $set[$key] ?? $default;
-    unset($set[$key]);
-
-    return $value;
-}
-
 function reindex(array &$items): void
 {
     $items = array_values($items);
