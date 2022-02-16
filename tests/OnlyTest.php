@@ -5,7 +5,6 @@ namespace BrenoRoosevelt\Tests;
 
 use PHPUnit\Framework\TestCase;
 use function BrenoRoosevelt\only;
-use function BrenoRoosevelt\reject;
 
 class OnlyTest extends TestCase
 {

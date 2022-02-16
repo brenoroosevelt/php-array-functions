@@ -36,6 +36,7 @@
             "src/Contains.php",
             "src/DotNotation.php",
             "src/Exactly.php",
+            "src/Except.php",
             "src/Expand.php",
             "src/First.php",
             "src/Flatten.php",

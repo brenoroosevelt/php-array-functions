@@ -3,11 +3,6 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt;
 
-function except(array $items, ...$keys): array
-{
-    return array_diff_key($items, array_flip($keys));
-}
-
 function column(iterable $items, $column): array
 {
     $result = [];
