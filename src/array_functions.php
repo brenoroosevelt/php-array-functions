@@ -3,11 +3,6 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt;
 
-function only(array $items, ...$keys): array
-{
-    return array_intersect_key($items, array_flip($keys));
-}
-
 function except(array $items, ...$keys): array
 {
     return array_diff_key($items, array_flip($keys));
