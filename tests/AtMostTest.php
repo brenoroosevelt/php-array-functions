@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace BrenoRoosevelt\Tests;
 
 use PHPUnit\Framework\TestCase;
-use function BrenoRoosevelt\at_least;
+use function BrenoRoosevelt\at_most;
 use const BrenoRoosevelt\CALLBACK_USE_BOTH;
 use const BrenoRoosevelt\CALLBACK_USE_KEY;
 use const BrenoRoosevelt\CALLBACK_USE_VALUE;
 
-class AtLeastTest extends TestCase
+class AtMostTest extends TestCase
 {
-    public function atLeastProvider(): array
+    public function atMostProvider(): array
     {
         return [
             'case_1' => [
@@ -26,14 +26,14 @@ class AtLeastTest extends TestCase
                 ['a', 'b', 'c'],
                 fn($el) => true,
                 CALLBACK_USE_VALUE,
-                false,
+                true,
             ],
             'case_3' => [
                 1,
                 [],
                 fn($el) => true,
                 CALLBACK_USE_VALUE,
-                false,
+                true,
             ],
             'case_3_1' => [
                 0,
@@ -47,35 +47,35 @@ class AtLeastTest extends TestCase
                 [],
                 fn($el) => true,
                 CALLBACK_USE_VALUE,
-                true,
+                false,
             ],
             'case_4' => [
-                2,
+                1,
                 [1, 2, 3, 4],
                 fn($el) => $el % 2 === 0,
                 CALLBACK_USE_VALUE,
-                true,
+                false,
             ],
             'case_5' => [
-                2,
+                4,
                 [1, 2, 3, 4],
                 fn($el) => $el % 2 === 0,
                 CALLBACK_USE_VALUE,
                 true,
             ],
             'case_6' => [
-                4,
+                3,
                 [1, 2, 3, 4],
                 fn($key) => is_integer($key),
                 CALLBACK_USE_KEY,
-                true,
+                false,
             ],
             'case_7' => [
-                1,
+                0,
                 ['a' => 1, 'b' => 2, 'c' => 3, 4],
                 fn($v, $key) => is_integer($key) && is_integer($v),
                 CALLBACK_USE_BOTH,
-                true,
+                false,
             ]
         ];
     }
@@ -87,11 +87,11 @@ class AtLeastTest extends TestCase
      * @param int $mode
      * @param bool $expected
      * @return void
-     * @dataProvider atLeastProvider
+     * @dataProvider atMostProvider
      */
-    public function testAtLeast(int $n, iterable $items, callable $callback, int $mode, bool $expected): void
+    public function testAtMost(int $n, iterable $items, callable $callback, int $mode, bool $expected): void
     {
-        $actual = at_least($n, $items, $callback, $mode);
+        $actual = at_most($n, $items, $callback, $mode);
         $this->assertEquals($expected, $actual);
     }
 }

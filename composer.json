@@ -32,6 +32,8 @@
             "src/Contains.php",
             "src/All.php",
             "src/AtLeast.php",
+            "src/AtMost.php",
+            "src/Exactly.php",
             "src/Add.php",
             "src/Set.php",
             "src/Pipe.php",

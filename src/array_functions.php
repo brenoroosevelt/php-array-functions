@@ -13,36 +13,6 @@ function none(iterable $items, callable $callback, int $mode = 0): bool
     return ! some($items, $callback, $mode);
 }
 
-function at_most(int $n, iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
-{
-    $count = 0;
-    foreach ($items as $key => $value) {
-        if (true === call_user_func_array($callback, __args($mode, $key, $value))) {
-            $count++;
-            if ($count > $n) {
-                return false;
-            }
-        }
-    }
-
-    return $count <= $n;
-}
-
-function exactly(int $n, iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
-{
-    $count = 0;
-    foreach ($items as $key => $value) {
-        if (true === call_user_func_array($callback, __args($mode, $key, $value))) {
-            $count++;
-            if ($count > $n) {
-                return false;
-            }
-        }
-    }
-
-    return $count === $n;
-}
-
 function first(iterable $items, callable $callback, $default = null, int $mode = CALLBACK_USE_VALUE)
 {
     foreach ($items as $key => $value) {

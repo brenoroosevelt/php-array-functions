@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace BrenoRoosevelt\Tests;
 
 use PHPUnit\Framework\TestCase;
-use function BrenoRoosevelt\at_least;
+use function BrenoRoosevelt\exactly;
 use const BrenoRoosevelt\CALLBACK_USE_BOTH;
 use const BrenoRoosevelt\CALLBACK_USE_KEY;
 use const BrenoRoosevelt\CALLBACK_USE_VALUE;
 
-class AtLeastTest extends TestCase
+class ExactlyTest extends TestCase
 {
-    public function atLeastProvider(): array
+    public function exactlyProvider(): array
     {
         return [
             'case_1' => [
@@ -22,11 +22,11 @@ class AtLeastTest extends TestCase
                 true, // expected
             ],
             'case_2' => [
-                4,
+                3,
                 ['a', 'b', 'c'],
                 fn($el) => true,
                 CALLBACK_USE_VALUE,
-                false,
+                true,
             ],
             'case_3' => [
                 1,
@@ -47,14 +47,14 @@ class AtLeastTest extends TestCase
                 [],
                 fn($el) => true,
                 CALLBACK_USE_VALUE,
-                true,
+                false,
             ],
             'case_4' => [
-                2,
+                1,
                 [1, 2, 3, 4],
                 fn($el) => $el % 2 === 0,
                 CALLBACK_USE_VALUE,
-                true,
+                false,
             ],
             'case_5' => [
                 2,
@@ -64,9 +64,16 @@ class AtLeastTest extends TestCase
                 true,
             ],
             'case_6' => [
-                4,
+                3,
                 [1, 2, 3, 4],
                 fn($key) => is_integer($key),
+                CALLBACK_USE_KEY,
+                false,
+            ],
+            'case_6_1' => [
+                1,
+                [1, 2, 3, 4, 'a' => 5],
+                fn($key) => is_string($key),
                 CALLBACK_USE_KEY,
                 true,
             ],
@@ -87,11 +94,11 @@ class AtLeastTest extends TestCase
      * @param int $mode
      * @param bool $expected
      * @return void
-     * @dataProvider atLeastProvider
+     * @dataProvider exactlyProvider
      */
-    public function testAtLeast(int $n, iterable $items, callable $callback, int $mode, bool $expected): void
+    public function testExactly(int $n, iterable $items, callable $callback, int $mode, bool $expected): void
     {
-        $actual = at_least($n, $items, $callback, $mode);
+        $actual = exactly($n, $items, $callback, $mode);
         $this->assertEquals($expected, $actual);
     }
 }
