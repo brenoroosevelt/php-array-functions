@@ -17,13 +17,14 @@ The following versions of PHP are supported: `7.4`, `8.0`, `8.1`.
 $ composer require brenoroosevelt/array-functions
 ```
 
+## Function list
 ```php
 // Add - Set
-function add(array &$set, ...$elements): int
-function set(array &$set, $element, $key = null): void
+function add(array &$set, ...$elements): int;
+function set(array &$set, $element, $key = null): void;
 
 // Count
-function all(iterable $items, callable $callback, bool $empty_is_valid = true, int $mode = CALLBACK_USE_VALUE): bool
+function all(iterable $items, callable $callback, bool $empty_is_valid = true, int $mode = CALLBACK_USE_VALUE): bool;
 function at_least(int $n, iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
 function at_most(int $n, iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
 function exactly(int $n, iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
