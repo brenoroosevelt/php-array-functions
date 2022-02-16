@@ -54,7 +54,7 @@
             "src/RemoveKey.php",
             "src/Set.php",
             "src/Some.php",
-            "src/array_functions.php"
+            "src/Sum.php"
         ]
     },
     "autoload-dev": {
