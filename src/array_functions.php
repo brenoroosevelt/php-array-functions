@@ -91,7 +91,7 @@ function paginate(array $items, int $page, int $per_page, bool $preserve_keys = 
     return array_slice($items, $offset, $per_page, $preserve_keys);
 }
 
-function sum_values(iterable $items, callable $callback, int $mode = 0)
+function sum(iterable $items, callable $callback, int $mode = 0)
 {
     $sum = 0;
     foreach ($items as $key => $value) {
@@ -99,64 +99,4 @@ function sum_values(iterable $items, callable $callback, int $mode = 0)
     }
 
     return $sum;
-}
-
-function count_values(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): int
-{
-    $count = 0;
-    foreach ($items as $key => $value) {
-        if (true === call_user_func_array($callback, __args($mode, $key, $value))) {
-            $count++;
-        }
-    }
-
-    return $count;
-}
-
-function max_value(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE)
-{
-    $max = null;
-    foreach ($items as $item) {
-        $max = $item;
-
-        break;
-    }
-
-    foreach ($items as $key => $value) {
-        $value = call_user_func_array($callback, __args($mode, $key, $value));
-        if ($value > $max) {
-            $max = $value;
-        }
-    }
-
-    return $max;
-}
-
-function min_value(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE)
-{
-    $min = null;
-    foreach ($items as $item) {
-        $min = $item;
-
-        break;
-    }
-
-    foreach ($items as $key => $value) {
-        $value = call_user_func_array($callback, __args($mode, $key, $value));
-        if ($value < $min) {
-            $min = $value;
-        }
-    }
-
-    return $min;
-}
-
-function group_by(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): array
-{
-    $group = [];
-    foreach ($items as $key => $value) {
-        $group[call_user_func_array($callback, __args($mode, $key, $value))][] = $value;
-    }
-
-    return $group;
 }
