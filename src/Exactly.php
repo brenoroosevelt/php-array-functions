@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace BrenoRoosevelt;
 
 /**
- * Evaluates whether <b>exactly n</b> elements match the specification
+ * Evaluates if <b>exactly n</b> match the specification
  *
  * @param int $n The number to check
  * @param iterable $items The collection

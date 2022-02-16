@@ -4,9 +4,8 @@ declare(strict_types=1);
 namespace BrenoRoosevelt;
 
 /**
- * Evaluates whether <b>at least n</b> match the specification
+ * Evaluates if none matches the specification
  *
- * @param int $n The number to check
  * @param iterable $items The collection
  * @param callable $callback Callable must return a boolean
  * @param int $mode [optional] <p>
@@ -26,17 +25,7 @@ namespace BrenoRoosevelt;
  * </ul>
  * @return bool
  */
-function at_least(int $n, iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
+function none(iterable $items, callable $callback, int $mode = 0): bool
 {
-    $count = 0;
-    foreach ($items as $key => $value) {
-        if (true === call_user_func_array($callback, __args($mode, $key, $value))) {
-            $count++;
-            if ($count >= $n) {
-                return true;
-            }
-        }
-    }
-
-    return $count >= $n;
+    return ! some($items, $callback, $mode);
 }

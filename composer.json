@@ -29,6 +29,7 @@
         "files": [
             "src/CallbackArgs.php",
             "src/IndexOf.php",
+            "src/None.php",
             "src/Contains.php",
             "src/All.php",
             "src/AtLeast.php",
@@ -43,6 +44,7 @@
             "src/Remove.php",
             "src/RemoveKey.php",
             "src/Pull.php",
+            "src/Some.php",
             "src/array_functions.php"
         ]
     },

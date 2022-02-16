@@ -3,16 +3,6 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt;
 
-function some(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
-{
-    return at_least(1, $items, $callback, $mode);
-}
-
-function none(iterable $items, callable $callback, int $mode = 0): bool
-{
-    return ! some($items, $callback, $mode);
-}
-
 function first(iterable $items, callable $callback, $default = null, int $mode = CALLBACK_USE_VALUE)
 {
     foreach ($items as $key => $value) {

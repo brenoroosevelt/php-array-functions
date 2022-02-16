@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class SetTest extends TestCase
 {
-    public function addProvider(): array
+    public function setProvider(): array
     {
         return [
             'case_1' => [
@@ -32,7 +32,7 @@ class SetTest extends TestCase
      * @param $key
      * @param array $expected
      * @return void
-     * @dataProvider addProvider
+     * @dataProvider setProvider
      */
     public function testAdd(array $items, $element, $key, array $expected): void
     {
