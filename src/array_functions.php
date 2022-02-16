@@ -3,24 +3,6 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt;
 
-function reindex(array &$items): void
-{
-    $items = array_values($items);
-}
-
-function all(iterable $items, callable $callback, bool $empty_is_valid = true, int $mode = CALLBACK_USE_VALUE): bool
-{
-    $count = 0;
-    foreach ($items as $key => $value) {
-        $count++;
-        if (true !== call_user_func_array($callback, __args($mode, $key, $value))) {
-            return false;
-        }
-    }
-
-    return $empty_is_valid || $count > 0;
-}
-
 function some(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
 {
     return at_least(1, $items, $callback, $mode);

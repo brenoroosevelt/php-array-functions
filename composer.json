@@ -30,6 +30,7 @@
             "src/CallbackArgs.php",
             "src/IndexOf.php",
             "src/Contains.php",
+            "src/All.php",
             "src/Add.php",
             "src/Set.php",
             "src/Pipe.php",
