@@ -16,3 +16,17 @@ function pipe($payload, callable ...$stages)
 
     return $payload;
 }
+
+/**
+ * @param $value
+ * @param callable ...$jobs
+ * @return mixed returns the value
+ */
+function with(&$value, callable ...$jobs)
+{
+    foreach ($jobs as $job) {
+        $job($value);
+    }
+
+    return $value;
+}
