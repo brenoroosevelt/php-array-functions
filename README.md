@@ -17,84 +17,53 @@ The following versions of PHP are supported: `7.4`, `8.0`, `8.1`.
 $ composer require brenoroosevelt/array-functions
 ```
 
-## Usage
-
-### index_of
 ```php
-/**
- * Searches the iterable for a given element and returns the first corresponding key (index) if successful
- *
- * @param iterable $haystack The iterable collection
- * @param mixed $element The searched element
- * @param bool $strict If the third parameter strict is set to true then will also check the types of the needle
- * @return false|int|string the key for needle if it is found in the array, false otherwise.
- */
-function index_of(iterable $haystack, $element, bool $strict = true)
-```
-
-### contains
-```php
-/**
- * Checks if ALL elements exists in a collection
- * The element index (key) is irrelevant for this operation
- *
- * @param iterable $items The collection
- * @param mixed ...$elements The searched elements
- * @return bool True if ALL elements were found in the collection, false otherwise
- */
-function contains(iterable $items, ...$elements): bool
-```
-
-### add
-```php
-/**
- * Adds elements to a collection if they don't exist yet (set behavior).
- * The element index (key) is irrelevant for this operation
- * 
- * @param array $set The collection
- * @param mixed ...$elements Elements to be added
- * @return int The number of items added to the collection
- */
+// Add - Set
 function add(array &$set, ...$elements): int
-```
-
-### set
-```php
-/**
- * Adds or replace an element to a collection using an optional key/index.
- * If the given key already exists in the collection, the corresponding value will be replaced by the element
- *
- * @example $set = ['a' => 1, 2, 3, 4]
- * set($set, 2, 'a') $set will contain ['a' => 2, 2, 3, 4]
- *
- * @example $set = ['a' => 1, 2, 3, 4]
- * set($set, 1) $set will contain ['a' => 1, 2, 3, 4, 1]
- *
- * @param array $set The collection
- * @param mixed $element The element to be added
- * @param string|int $key The key/index of element
- * @return void
- */
 function set(array &$set, $element, $key = null): void
-```
 
-### remove
-```php
-/**
- * Remove all provided elements from the collection
- * The element index (key) is irrelevant for this operation
- * This function uses strict comparison to find and remove elements
- *
- * @example $set = [1, 1, 2, 3, 4]
- * remove($set, 1, 3) will return 3 (int) and $set will contain [2, 4]
- * 
- * @param array $set The collection
- * @param mixed ...$elements Elements to be removed
- * @return int The number of removed elements
- */
+// Count
+function all(iterable $items, callable $callback, bool $empty_is_valid = true, int $mode = CALLBACK_USE_VALUE): bool
+function at_least(int $n, iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
+function at_most(int $n, iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
+function exactly(int $n, iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
+function none(iterable $items, callable $callback, int $mode = 0): bool
+function some(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): bool
+function contains(iterable $items, ...$elements): bool
+
+// Filter - Extract
+function accept(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): array
+function reject(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): array
+function only(array $items, ...$keys): array
+function except(array $items, ...$keys): array
+function first(iterable $items, callable $callback, $default = null, int $mode = CALLBACK_USE_VALUE)
+
+// Key - Index
+function has(array $haystack, $key, ...$keys): bool
+function index_of(iterable $haystack, $element, bool $strict = true)
+
+// Remove - Pull
+function pull(array &$set, $key, $default = null)
 function remove(array &$set, ...$elements): int
-```
+function remove_key(array &$set, $key, ...$keys): int
 
+// Miscellaneous
+function map(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): array
+function paginate(array $items, int $page, int $per_page, bool $preserve_keys = true): array
+function sum(iterable $items, callable $callback, int $mode = 0)
+
+// Dot Notation
+function flatten(array $items, ?string $pathSeparator = null): array
+function expand(array $items, string $separator = '.'): array
+function set_path(array &$haystack, string $path, $value, string $separator = '.'): void
+function get_path(array $haystack, string $path, $default = null, string $separator = '.')
+function unset_path(array &$haystack, string $path, string $separator = '.')
+function has_path(array $haystack, string $path, string $separator = '.'): bool
+
+// Pipeline
+function pipe($payload, callable ...$stages)
+function with(&$value, callable ...$jobs)
+```
 ## License
 
 This project is licensed under the terms of the MIT license. See the [LICENSE](LICENSE.md) file for license rights and limitations.
