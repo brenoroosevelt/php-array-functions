@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace BrenoRoosevelt\Tests;
 
 use PHPUnit\Framework\TestCase;
+use function BrenoRoosevelt\add;
 use function BrenoRoosevelt\has;
 
 class HasTest extends TestCase
