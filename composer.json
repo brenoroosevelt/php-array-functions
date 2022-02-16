@@ -35,6 +35,7 @@
             "src/AtLeast.php",
             "src/AtMost.php",
             "src/Exactly.php",
+            "src/IsEmpty.php",
             "src/Add.php",
             "src/Set.php",
             "src/Pipe.php",
