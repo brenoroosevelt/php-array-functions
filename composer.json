@@ -39,6 +39,7 @@
             "src/Expand.php",
             "src/First.php",
             "src/Flatten.php",
+            "src/Has.php",
             "src/IndexOf.php",
             "src/Map.php",
             "src/None.php",

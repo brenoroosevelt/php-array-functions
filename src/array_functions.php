@@ -3,11 +3,6 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt;
 
-function has(array $items, ...$keys): bool
-{
-    return ! array_diff($keys, array_keys($items));
-}
-
 function only(array $items, ...$keys): array
 {
     return array_intersect_key($items, array_flip($keys));

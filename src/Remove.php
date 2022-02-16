@@ -11,12 +11,14 @@ namespace BrenoRoosevelt;
  * remove($set, 1, 3) will return 3 (int) and $set will contain [2, 4]
  *
  * @param  array $set         The collection
+ * @param  mixed $element Element to be removed
  * @param  mixed ...$elements Elements to be removed
  * @return int The number of removed elements
  */
-function remove(array &$set, ...$elements): int
+function remove(array &$set, $element, ...$elements): int
 {
     $removed = 0;
+    $elements[] = $element;
     foreach ($elements as $element) {
         foreach (array_keys($set, $element, true) as $index) {
             unset($set[$index]);

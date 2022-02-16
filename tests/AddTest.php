@@ -26,11 +26,6 @@ class AddTest extends TestCase
                 ['d', 'd', 'a', 'c'],
                 ['a', 'b', 'c', 'd'],
             ],
-            'case_4' => [
-                ['a', 'b', 'c'],
-                [],
-                ['a', 'b', 'c'],
-            ],
             'case_5' => [
                 ['x' => 'a', 'y' => 'b', 'c'],
                 ['x', 'y', 'a', 'b', 'b'],

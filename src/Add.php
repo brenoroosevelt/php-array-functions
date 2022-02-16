@@ -9,12 +9,14 @@ namespace BrenoRoosevelt;
  * This function uses strict comparison to determine if element exists
  *
  * @param  array $set         The collection
+ * @param  mixed $element Element to be added
  * @param  mixed ...$elements Elements to be added
  * @return int The number of items added to the collection
  */
-function add(array &$set, ...$elements): int
+function add(array &$set, $element, ...$elements): int
 {
     $added = 0;
+    array_unshift($elements, $element);
     foreach ($elements as $element) {
         if (! in_array($element, $set, true)) {
             $set[] = $element;
