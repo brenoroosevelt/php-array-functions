@@ -45,6 +45,7 @@
             "src/Map.php",
             "src/None.php",
             "src/Only.php",
+            "src/Paginate.php",
             "src/Pipe.php",
             "src/Pull.php",
             "src/Pull.php",
