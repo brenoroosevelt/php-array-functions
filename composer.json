@@ -38,6 +38,7 @@
             "src/Add.php",
             "src/Set.php",
             "src/Pipe.php",
+            "src/First.php",
             "src/Flatten.php",
             "src/Expand.php",
             "src/DotNotation.php",

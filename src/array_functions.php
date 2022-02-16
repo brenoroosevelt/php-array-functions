@@ -3,17 +3,6 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt;
 
-function first(iterable $items, callable $callback, $default = null, int $mode = CALLBACK_USE_VALUE)
-{
-    foreach ($items as $key => $value) {
-        if (true === call_user_func_array($callback, __args($mode, $key, $value))) {
-            return $value;
-        }
-    }
-
-    return $default;
-}
-
 function map(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): array
 {
     $result = [];
