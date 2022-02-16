@@ -3,18 +3,6 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt;
 
-function reject(iterable $items, callable $callback, int $mode = CALLBACK_USE_VALUE): array
-{
-    $result = [];
-    foreach ($items as $key => $value) {
-        if (true !== call_user_func_array($callback, __args($mode, $key, $value))) {
-            $result[$key] = $value;
-        }
-    }
-
-    return $result;
-}
-
 function has(array $items, ...$keys): bool
 {
     return ! array_diff($keys, array_keys($items));

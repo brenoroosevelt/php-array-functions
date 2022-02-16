@@ -44,6 +44,8 @@
             "src/None.php",
             "src/Pipe.php",
             "src/Pull.php",
+            "src/Pull.php",
+            "src/Reject.php",
             "src/Remove.php",
             "src/RemoveKey.php",
             "src/Set.php",
